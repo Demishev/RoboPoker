@@ -1,0 +1,11 @@
+1.Login
+2.register
+3.unregister
+4.update user info
+5.joing to game
+6.seat out
+7.logout
+8.userinfo by token.
+9.table list
+10. table info by id.
+11.User list
