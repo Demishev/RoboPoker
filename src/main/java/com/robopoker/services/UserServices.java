@@ -16,6 +16,7 @@ import javax.ws.rs.core.MediaType;
  * Date: 25.11.13
  * Time: 17:26
  */
+@Path("/")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class UserServices {
