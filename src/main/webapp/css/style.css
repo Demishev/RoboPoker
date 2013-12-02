@@ -27,16 +27,50 @@ body {
 /* Header
 -----------------------------------------------------------------------------*/
 .header {
-    height: 116px;
-    font: 2em Comic Sans MS;
+    height: 136px;
+    font: 8em Georgia;
+    font-style: italic;
+    text-align: center;
+    text-shadow: 1px 1px 2px #ffffff, 0 0 10px #C80000;
+    color: #C80000;
 }
 #logo{
-    text-align: left;
+    float: left;
+    margin: 10px 50px 10px 50px;
 }
 
 
 /* Middle
 -----------------------------------------------------------------------------*/
+#menu{
+    font: 2em Georgia;
+    font-style: italic;
+    text-align: center;
+}
+li {
+    display: inline-block; /* Строчно-блочные элементы */
+    background: #C80000; /* Цвет фона */
+    margin-right: 3px; /* Расстояние между пунктами меню */
+    -webkit-transform: skewX(-30deg); /* Для Safari и Chrome */
+    -moz-transform: skewX(-30deg); /* Для Firefox */
+    -o-transform: skewX(-30deg); /* Для Opera */
+    -ms-transform: skewX(-30deg); /* Для IE */
+    transform: skewX(-30deg); /* CSS3 */
+}
+a {
+    color: #fff; /* Цвет ссылок */
+    display: block; /* Блочный элемент */
+    padding: 5px 100px; /* Поля вокруг текста */
+    text-decoration: none; /* Убираем подчёркивание */
+    -webkit-transform: skewX(30deg); /* Для Safari и Chrome */
+    -moz-transform: skewX(30deg); /* Для Firefox */
+    -o-transform: skewX(30deg); /* Для Opera */
+    -ms-transform: skewX(30deg); /* Для IE */
+    transform: skewX(30deg); /* CSS3 */
+}
+li:hover {
+    background: #3EA2FF; /* Цвет фона при наведении курсора мыши */
+}
 .content {
     padding: 0 0 100px;
 }
