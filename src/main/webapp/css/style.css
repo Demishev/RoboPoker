@@ -77,6 +77,7 @@ li:hover {
     margin: 2em 5em 2em 2em;
     padding: 1em 1em 1em 1em;
     border: 0.3em solid #006400;
+    border-radius: 1.5em;
     font: 120% Georgia;
 }
 
@@ -84,10 +85,12 @@ li:hover {
     text-align: center;
     margin: 0.2em 0.2em;
     font-size: 140%;
+    color: #006400;
 }
 
 .form {
-    border: 0.1em solid #006400;
+    border: 0.2em solid #006400;
+    border-radius: 0.5em;
     margin: 0.2em 0.1em;
 
 }
