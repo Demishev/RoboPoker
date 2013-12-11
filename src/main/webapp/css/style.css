@@ -34,11 +34,11 @@ body {
     text-shadow: 1px 1px 2px #ffffff, 0 0 10px #006400;
     color: #006400;
 }
-#logo{
+
+#logo {
     float: left;
     margin: 10px 50px 10px 50px;
 }
-
 
 /* Middle
 -----------------------------------------------------------------------------*/
@@ -47,7 +47,7 @@ body {
 }
 
 /*Menu*/
-#menu{
+#menu {
     font: 2em Georgia;
     font-style: italic;
     text-align: center;
@@ -63,6 +63,7 @@ li {
     -ms-transform: skewX(-30deg); /* Для IE */
     transform: skewX(-30deg); /* CSS3 */
 }
+
 a {
     color: #fff; /* Цвет ссылок */
     display: block; /* Блочный элемент */
@@ -74,14 +75,24 @@ a {
     -ms-transform: skewX(30deg); /* Для IE */
     transform: skewX(30deg); /* CSS3 */
 }
+
 li:hover {
     background: #3EA2FF; /* Цвет фона при наведении курсора мыши */
 }
 
-/*Information */
-#info{
+/*Form*/
+#form {
+    float: right;
+    margin: 2em 5em 2em 2em;
+    padding: 1em 1em 1em 1em;
+    border: 0.3em solid #006400;
 }
-#table{
+
+/*Information */
+#info {
+}
+
+#table {
     float: left;
 }
 
