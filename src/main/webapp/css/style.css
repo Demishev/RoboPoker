@@ -57,11 +57,6 @@ li {
     display: inline-block; /* Строчно-блочные элементы */
     background: #006400; /* Цвет фона */
     margin-right: 3px; /* Расстояние между пунктами меню */
-    -webkit-transform: skewX(-30deg); /* Для Safari и Chrome */
-    -moz-transform: skewX(-30deg); /* Для Firefox */
-    -o-transform: skewX(-30deg); /* Для Opera */
-    -ms-transform: skewX(-30deg); /* Для IE */
-    transform: skewX(-30deg); /* CSS3 */
 }
 
 a {
@@ -69,11 +64,6 @@ a {
     display: block; /* Блочный элемент */
     padding: 5px 100px; /* Поля вокруг текста */
     text-decoration: none; /* Убираем подчёркивание */
-    -webkit-transform: skewX(30deg); /* Для Safari и Chrome */
-    -moz-transform: skewX(30deg); /* Для Firefox */
-    -o-transform: skewX(30deg); /* Для Opera */
-    -ms-transform: skewX(30deg); /* Для IE */
-    transform: skewX(30deg); /* CSS3 */
 }
 
 li:hover {
@@ -81,11 +71,25 @@ li:hover {
 }
 
 /*Form*/
+
 #form {
     float: right;
     margin: 2em 5em 2em 2em;
     padding: 1em 1em 1em 1em;
     border: 0.3em solid #006400;
+    font: 120% Georgia;
+}
+
+#signIn {
+    text-align: center;
+    margin: 0.2em 0.2em;
+    font-size: 140%;
+}
+
+.form {
+    border: 0.1em solid #006400;
+    margin: 0.2em 0.1em;
+
 }
 
 /*Information */
