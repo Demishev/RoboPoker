@@ -31,8 +31,8 @@ body {
     font: 8em Georgia;
     font-style: italic;
     text-align: center;
-    text-shadow: 1px 1px 2px #ffffff, 0 0 10px #C80000;
-    color: #C80000;
+    text-shadow: 1px 1px 2px #ffffff, 0 0 10px #006400;
+    color: #006400;
 }
 #logo{
     float: left;
@@ -42,6 +42,11 @@ body {
 
 /* Middle
 -----------------------------------------------------------------------------*/
+.content {
+    padding: 0 0 100px;
+}
+
+/*Menu*/
 #menu{
     font: 2em Georgia;
     font-style: italic;
@@ -49,7 +54,7 @@ body {
 }
 li {
     display: inline-block; /* Строчно-блочные элементы */
-    background: #C80000; /* Цвет фона */
+    background: #006400; /* Цвет фона */
     margin-right: 3px; /* Расстояние между пунктами меню */
     -webkit-transform: skewX(-30deg); /* Для Safari и Chrome */
     -moz-transform: skewX(-30deg); /* Для Firefox */
@@ -71,8 +76,12 @@ a {
 li:hover {
     background: #3EA2FF; /* Цвет фона при наведении курсора мыши */
 }
-.content {
-    padding: 0 0 100px;
+
+/*Information */
+#info{
+}
+#table{
+    float: left;
 }
 
 /* Footer
