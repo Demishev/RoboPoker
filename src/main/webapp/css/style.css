@@ -52,6 +52,7 @@ body {
     font-style: italic;
     text-align: center;
 }
+
 li {
     display: inline-block; /* Строчно-блочные элементы */
     background: #006400; /* Цвет фона */
