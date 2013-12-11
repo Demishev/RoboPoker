@@ -62,7 +62,7 @@ li {
 a {
     color: #fff; /* Цвет ссылок */
     display: block; /* Блочный элемент */
-    padding: 5px 100px; /* Поля вокруг текста */
+    padding: 0.1em 2em; /* Поля вокруг текста */
     text-decoration: none; /* Убираем подчёркивание */
 }
 
