@@ -51,12 +51,11 @@ body {
     font: 2em Georgia;
     font-style: italic;
     text-align: center;
+    margin: 0;
 }
 
-li {
-    display: inline-block; /* Строчно-блочные элементы */
+tr {
     background: #006400; /* Цвет фона */
-    margin-right: 3px; /* Расстояние между пунктами меню */
 }
 
 a {
@@ -66,7 +65,7 @@ a {
     text-decoration: none; /* Убираем подчёркивание */
 }
 
-li:hover {
+td:hover {
     background: #3EA2FF; /* Цвет фона при наведении курсора мыши */
 }
 
