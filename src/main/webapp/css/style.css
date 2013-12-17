@@ -5,6 +5,7 @@
 
 html {
     height: 100%;
+    background-image: url(../images/seamless-texture-416.jpg);
 }
 
 article, aside, details, figcaption, figure, footer, header, hgroup, nav, section, summary {
@@ -15,17 +16,17 @@ body {
     font: 12px/18px Arial, sans-serif; /*Характеристики шрифта */
     height: 100%;
     margin: 1em 1em 1em 1em; /* Отступы вокруг элемента */
-    background-color: #3EA2FF;
-
-    background-image: url(images/background.png);
 }
 
 .wrapper {
-    width: 100%;
     min-height: 100%;
     height: auto !important;
-
-}
+    width: 900px;
+    margin:2em auto auto auto;
+    border: solid 1px #01AF1C;
+    border-radius: 2em;
+    background-color: #e4ffe2;
+ }
 
 /* Header
 -----------------------------------------------------------------------------*/
@@ -34,7 +35,7 @@ body {
     font: 8em Georgia;
     font-style: italic;
     text-align: center;
-    text-shadow: 1px 1px 2px #ffffff, 0 0 10px #006400;
+    text-shadow: 1px 1px 2px #41FE0C, 0 0 10px #006400;
     color: #006400;
 }
 
@@ -46,13 +47,12 @@ body {
 /* Middle
 -----------------------------------------------------------------------------*/
 .content {
-    padding: 0 0 100px;/* Поля вокруг текста */
-    width: 900px;
-    margin: auto;
-    border: solid 1px #3EA2FF;
+    padding: 1em;/* Поля вокруг текста */
+
 }
 
 /*Menu*/
+
 #menu {
     font: 2em Georgia;
     font-style: italic;
@@ -62,12 +62,12 @@ body {
 
 tr {
     background: #006400; /* Цвет фона */
+    background: linear-gradient(to top, #41fe0c, #006400)
 }
 
 a {
     color: #fff; /* Цвет ссылок */
     display: block; /* Блочный элемент */
-    padding: 0.1em 2em; /* Поля вокруг текста */
     text-decoration: none; /* Убираем подчёркивание */
 }
 
@@ -102,6 +102,7 @@ td:hover {
 }
 
 /*Information */
+
 #info {
 }
 
@@ -113,9 +114,8 @@ td:hover {
 /* Footer
 -----------------------------------------------------------------------------*/
 .footer {
-    margin: -100px auto 0; /* Отступы вокруг элемента */
-    min-width: 800px;
+    margin: 3em auto 0; /* Отступы вокруг элемента */
     height: 100px;
-    background: #afffbe;
+    width: 900px;
     position: relative;
 }
