@@ -8,19 +8,19 @@ html {
 }
 
 article, aside, details, figcaption, figure, footer, header, hgroup, nav, section, summary {
-    display: block;
+    display: block;/* Блочный элемент */
 }
 
 body {
-    font: 12px/18px Arial, sans-serif;
+    font: 12px/18px Arial, sans-serif; /*Характеристики шрифта */
     height: 100%;
-    margin: 1em 1em 1em 1em;
-    background: #c9ffdd;
+    margin: 1em 1em 1em 1em; /* Отступы вокруг элемента */
+    background-color: #3EA2FF;
+    background-image: url(images/background.png);
 }
 
 .wrapper {
     width: 100%;
-    min-width: 800px;
     min-height: 100%;
     height: auto !important;
 
@@ -39,13 +39,16 @@ body {
 
 #logo {
     float: left;
-    margin: 10px 50px 10px 50px;
+    margin: 10px 50px 10px 50px;  /* Отступы вокруг элемента */
 }
 
 /* Middle
 -----------------------------------------------------------------------------*/
 .content {
-    padding: 0 0 100px;
+    padding: 0 0 100px;/* Поля вокруг текста */
+    width: 900px;
+    margin: auto;
+    border: solid 1px #3EA2FF;
 }
 
 /*Menu*/
@@ -53,7 +56,7 @@ body {
     font: 2em Georgia;
     font-style: italic;
     text-align: center;
-    margin: 0 0 0.5em 0;
+    margin: 0 0 0.5em 0;  /* Отступы вокруг элемента */
 }
 
 tr {
@@ -75,7 +78,7 @@ td:hover {
 
 #form {
     float: right;
-    margin: 2em 2em 2em 2em;
+    margin: 2em 2em 2em 2em; /* Отступы вокруг элемента */
     padding: 1em 1em 1em 1em;
     border: 0.3em solid #006400;
     border-radius: 1.5em;
@@ -84,7 +87,7 @@ td:hover {
 
 #signIn {
     text-align: center;
-    margin: 0.1em 0.1em;
+    margin: 0.1em 0.1em;  /* Отступы вокруг элемента */
     font-size: 140%;
     color: #006400;
 }
@@ -92,7 +95,7 @@ td:hover {
 .form {
     border: 0.2em solid #006400;
     border-radius: 0.5em;
-    margin: 0.2em 0.1em;
+    margin: 0.2em 0.1em;  /* Отступы вокруг элемента */
     outline: none;
 
 }
@@ -103,13 +106,13 @@ td:hover {
 
 #imgCart {
     float: left;
-    margin: 0 1em 1em 0;
+    margin: 0 1em 1em 0; /* Отступы вокруг элемента */
 }
 
 /* Footer
 -----------------------------------------------------------------------------*/
 .footer {
-    margin: -100px auto 0;
+    margin: -100px auto 0; /* Отступы вокруг элемента */
     min-width: 800px;
     height: 100px;
     background: #afffbe;
