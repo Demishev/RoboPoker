@@ -5,7 +5,7 @@
 
 html {
     height: 100%;
-    background-image: url(../images/seamless-texture-416.jpg);
+    background-image: url(../images/seamless.jpg);
 }
 
 article, aside, details, figcaption, figure, footer, header, hgroup, nav, section, summary {
@@ -23,25 +23,24 @@ body {
     height: auto !important;
     width: 900px;
     margin:2em auto auto auto;
-    border: solid 1px #01AF1C;
+    border: solid 1px #000000;
     border-radius: 2em;
-    background-color: #e4ffe2;
+    background-color: #ffffff;
  }
 
 /* Header
 -----------------------------------------------------------------------------*/
 .header {
-    height: 136px;
-    font: 8em Georgia;
+    font: 9em serif;
     font-style: italic;
     text-align: center;
-    text-shadow: 1px 1px 2px #41FE0C, 0 0 10px #006400;
-    color: #006400;
+    text-shadow: 1px 1px 2px #39d60c, 0 0 10px #ffffff;
+    color: #009900;
+    margin: 0.1em auto;
 }
 
 #logo {
     float: left;
-    margin: 10px 50px 10px 50px;  /* Отступы вокруг элемента */
 }
 
 /* Middle
@@ -54,7 +53,7 @@ body {
 /*Menu*/
 
 #menu {
-    font: 2em Georgia;
+    font: 2em serif;
     font-style: italic;
     text-align: center;
     margin: 0 0 0.5em 0;  /* Отступы вокруг элемента */
@@ -81,7 +80,7 @@ td:hover {
     float: right;
     margin: 2em 2em 2em 2em; /* Отступы вокруг элемента */
     padding: 1em 1em 1em 1em;
-    border: 0.3em solid #006400;
+    border: 0.1em solid #006400;
     border-radius: 1.5em;
     font: 120% Georgia;
 }
@@ -94,7 +93,7 @@ td:hover {
 }
 
 .form {
-    border: 0.2em solid #006400;
+    border: 0.1em solid #006400;
     border-radius: 0.5em;
     margin: 0.2em 0.1em;  /* Отступы вокруг элемента */
     outline: none;
