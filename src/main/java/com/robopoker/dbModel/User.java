@@ -13,22 +13,26 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
 
 @Entity
 @Table(name = "USERS")
 public class User implements Serializable {
+    @NotNull
+    @Column(name = "email")
+    @Id
     private String email;
-    private String name;
-    private int passwordHash;
-    private Date registrationDate;
-
-    private Set<String> tokens;
-
 
     @NotNull
-    @Column(name = "EMAIL")
-    @Id
+    @Column(name = "name")
+    private String name;
+
+    @NotNull
+    @Column(name = "password_hash")
+    private String passwordHash;
+
+    @Column(name = "registration_date")
+    private Date registrationDate;
+
     public String getEmail() {
         return email;
     }
@@ -37,8 +41,6 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    @NotNull
-    @Column(name = "NAME")
     public String getName() {
         return name;
     }
@@ -47,22 +49,30 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    @NotNull
-    @Column(name = "PASSWORD_HASH")
-    public int getPasswordHash() {
+    public String getPasswordHash() {
         return passwordHash;
     }
 
-    public void setPasswordHash(int passwordHash) {
+    public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
     }
 
-    @Column(name = "REGISTERED")
     public Date getRegistrationDate() {
         return registrationDate;
     }
 
     public void setRegistrationDate(Date registrationDate) {
         this.registrationDate = registrationDate;
+    }
+
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "email='" + email + '\'' +
+                ", name='" + name + '\'' +
+                ", passwordHash='" + passwordHash + '\'' +
+                ", registrationDate=" + registrationDate +
+                '}';
     }
 }

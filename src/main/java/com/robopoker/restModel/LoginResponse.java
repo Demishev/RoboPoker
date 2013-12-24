@@ -10,17 +10,22 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class LoginResponse {
-	
-	private String token;
 
-	@XmlAttribute
-	public String getToken() {
-		return token;
-	}
+    private String token;
 
-	public void setToken(String token) {
-		this.token = token;
-	}
-	
-	
+    @XmlAttribute
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    @Override
+    public String toString() {
+        return "LoginResponse{" +
+                "token='" + token + '\'' +
+                '}';
+    }
 }

@@ -3,20 +3,18 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
              version="2.0">
-	<persistence-unit name="userServices" transaction-type="RESOURCE_LOCAL">
-		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<class>com.robopoker.dbModel.User</class>
-		<properties>
-		    <property name="hibernate.dialect" value="org.hibernate.dialect.DerbyTenSevenDialect"/>
+    <persistence-unit name="userServices" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <class>com.robopoker.dbModel.User</class>
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.DerbyTenSevenDialect"/>
             <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
-		
-			<property name="javax.persistence.schema-generation-action"	value="drop-and-create" />
-			<property name="javax.persistence.schema-generation-target"	value="database" />
-			<property name="javax.persistence.jdbc.driver"	value="org.apache.derby.jdbc.ClientDriver" />
-			<property name="javax.persistence.jdbc.url"	value="jdbc:derby://localhost:1527/chapter04DB;create=true" />
-			<property name="javax.persistence.jdbc.user" value="APP" />
-			<property name="javax.persistence.jdbc.password" value="APP" />
-		</properties>
-	</persistence-unit>
+
+            <property name="javax.persistence.schema-generation-action" value="drop-and-create"/>
+            <property name="javax.persistence.schema-generation-target" value="database"/>
+            <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:derby:test;create=true"/>
+        </properties>
+    </persistence-unit>
 </persistence>
 
