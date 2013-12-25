@@ -3,131 +3,169 @@
     padding: 0;
 }
 
-html {
-    height: 100%;
-    background-image: url(../images/fonkarti6j_2837513_5160131.jpg);
-}
-
-article, aside, details, figcaption, figure, footer, header, hgroup, nav, section, summary {
-    display: block;/* Блочный элемент */
-}
-
 body {
-    font: 12px/18px Arial, sans-serif; /*Характеристики шрифта */
-    height: 100%;
-    margin: 1em 1em 1em 1em; /* Отступы вокруг элемента */
+    background: url(../images/fonkarti9j_8847790_5160105.jpg) repeat-y center;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #001000;
 }
 
-.wrapper {
-    min-height: 100%;
-    height: auto !important;
-    width: 900px;
-    margin:2em auto auto auto;
-    border: solid 1px #001000;
-    border-radius: 2em;
-    background-color: #e4ffe2;
- }
-#col-wrap1 {
-    width:25%;
-    background:blue;
+h1, h2, h3 {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    color: #ff0005;
 }
 
-#col-wrap2 {
-    width:200%;
-    margin-right:-100%; /* чтобы IE6 не раздвигал контейнер */
-    position:relative;
-    left: 100%;
-    background:red;
+p, ul, ol {
+    margin-top: 1em;
+    line-height: 160%;
 }
 
-/* Header
------------------------------------------------------------------------------*/
-.header {
-    font: 9em serif;
-    font-style: italic;
-    text-align: center;
-    text-shadow: 1px 1px 2px #39d60c, 0 0 10px #ffffff;
-    color: #009900;
-    margin: 0.1em auto;
+ul {
+    list-style: none;
+}
+
+ol {
+    margin-left: 0.5em;
+    list-style-position: inside;
+}
+
+a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+a:hover {
+}
+
+/* -------------Header--------------- */
+
+#header {
+    width: 940px;
+    height: 100px;
+    margin: 0 auto;
+    padding: 0 40px;
 }
 
 #logo {
     float: left;
 }
 
-/* Middle
------------------------------------------------------------------------------*/
-.content {
-    padding: 1em;/* Поля вокруг текста */
-
-}
-
-/*Menu*/
-
-#menu {
-    font: 2em serif;
+#logo h1 {
+    margin: 0;
+    padding-top: 25px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     font-style: italic;
+    font-size: 5.5em;
+    text-shadow: 2px 5px 2px black, 0 0 5px #ffffff;
+}
+
+.post {
+}
+.imgLanguage{
+    float: right;
+    display: block;
+    margin: 0.5em 1em  0.5em 0.5em;
+    padding: 0.1em;
+}
+#imgLogo{
     float: left;
-    width:25%;
-    background:blue;
+    margin: 25px 15px 0 50px;
 }
 
-ul {
-    background: #006400; /* Цвет фона */
-    background: linear-gradient(to top, #41fe0c, #006400)
+/* ----------------- Page ----------------*/
+
+#page {
+    width: 940px;
+    margin: 0 auto;
 }
 
-a {
-    color: #001000; /* Цвет ссылок */
-    display: block; /* Блочный элемент */
-    text-decoration: none; /* Убираем подчёркивание */
+/*--------------- Content ----------------*/
+
+#content {
+    float: right;
+    width: 605px;
+    padding: 35px 50px 0 10px;
+    background-color: rgba(171, 171, 164, 0.90);
+    margin: 0;
+    border-top-right-radius: 1em;
+   
 }
 
-li:hover {
-    background: #3EA2FF; /* Цвет фона при наведении курсора мыши */
+/*------------- Sidebar ----------------*/
+
+#sidebar {
+    font-family:  Georgia, "Times New Roman", Times, serif;
+    font-size: 180%;
+    float: left;
+    width: 245px;
+    padding: 20px 0 0 30px;
+    background-color: rgba(246, 245, 222, 0.67);
+    border-top-left-radius: 1em;
+    margin: 0;
+}
+
+#sidebar ul {
+    padding: 0;
+    list-style: none;
+}
+
+#sidebar li {
+    margin-bottom: 1em;
+    padding: 0;
+    background: none;
+}
+
+#sidebar li ul {
+}
+
+#sidebar li li {
+    margin: 0 0 0 1em;
+    padding-left: .75em;
+}
+
+#sidebar a {
+    color: #001000;
+}
+#sidebar a:hover{
+    color: #0a1382;
+    text-decoration: none;
 }
 
 /*Form*/
 
 #form {
-    float: left;
-    margin: 2em 2em 2em 2em; /* Отступы вокруг элемента */
-    padding: 1em 1em 1em 1em;
-    border: 0.1em solid #006400;
-    border-radius: 1.5em;
-    font: 120% Georgia;
+    margin: 2em 2em 2em 0;
+    padding: 0.5em 0.5em;
+    font-size: small;
+    border: 1px solid #000000;
+    border-radius: 0.5em;
 }
 
 #signIn {
     text-align: center;
-    margin: 0.1em 0.1em;  /* Отступы вокруг элемента */
-    font-size: 140%;
-    color: #006400;
+    margin: 0.1em 0.1em;
 }
 
 .form {
-    border: 0.1em solid #006400;
+    border: 0.1em solid #001000;
     border-radius: 0.5em;
     margin: 0.2em 0.1em;  /* Отступы вокруг элемента */
     outline: none;
+    text-align: center;
+}
+
+#button{
+    text-align: center;
 
 }
 
-/*Information */
+/* --------------Footer ---------------*/
 
-#info {
-}
-
-#imgCart {
-    float: left;
-    margin: 0 1em 1em 0; /* Отступы вокруг элемента */
-}
-
-/* Footer
------------------------------------------------------------------------------*/
-.footer {
-    margin: 3em auto 0; /* Отступы вокруг элемента */
+#footer {
     height: 100px;
-    width: 900px;
+    margin: 3em auto 0;
+    padding: 80px 10px 0 0;
+    width: 860px;
     position: relative;
+    text-align: right;
+    clear: both;
 }

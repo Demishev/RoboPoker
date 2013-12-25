@@ -1,0 +1,133 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    height: 100%;
+    background-image: url(../images/fonkarti6j_2837513_5160131.jpg);
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section, summary {
+    display: block;/* Блочный элемент */
+}
+
+body {
+    font: 12px/18px Arial, sans-serif; /*Характеристики шрифта */
+    height: 100%;
+    margin: 1em 1em 1em 1em; /* Отступы вокруг элемента */
+}
+
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    width: 900px;
+    margin:2em auto auto auto;
+    border: solid 1px #001000;
+    border-radius: 2em;
+    background-color: #e4ffe2;
+ }
+#col-wrap1 {
+    width:25%;
+    background:blue;
+}
+
+#col-wrap2 {
+    width:200%;
+    margin-right:-100%; /* чтобы IE6 не раздвигал контейнер */
+    position:relative;
+    left: 100%;
+    background:red;
+}
+
+/* Header
+-----------------------------------------------------------------------------*/
+.header {
+    font: 9em serif;
+    font-style: italic;
+    text-align: center;
+    text-shadow: 1px 1px 2px #39d60c, 0 0 10px #ffffff;
+    color: #009900;
+    margin: 0.1em auto;
+}
+
+#logo {
+    float: left;
+}
+
+/* Middle
+-----------------------------------------------------------------------------*/
+.content {
+    padding: 1em;/* Поля вокруг текста */
+
+}
+
+/*Menu*/
+
+#menu {
+    font: 2em serif;
+    font-style: italic;
+    float: left;
+    width:25%;
+    background:blue;
+}
+
+ul {
+    background: #006400; /* Цвет фона */
+    background: linear-gradient(to top, #41fe0c, #006400)
+}
+
+a {
+    color: #001000; /* Цвет ссылок */
+    display: block; /* Блочный элемент */
+    text-decoration: none; /* Убираем подчёркивание */
+}
+
+li:hover {
+    background: #3EA2FF; /* Цвет фона при наведении курсора мыши */
+}
+
+/*Form*/
+
+#form {
+    float: left;
+    margin: 2em 2em 2em 2em; /* Отступы вокруг элемента */
+    padding: 1em 1em 1em 1em;
+    border: 0.1em solid #006400;
+    border-radius: 1.5em;
+    font: 120% Georgia;
+}
+
+#signIn {
+    text-align: center;
+    margin: 0.1em 0.1em;  /* Отступы вокруг элемента */
+    font-size: 140%;
+    color: #006400;
+}
+
+.form {
+    border: 0.1em solid #006400;
+    border-radius: 0.5em;
+    margin: 0.2em 0.1em;  /* Отступы вокруг элемента */
+    outline: none;
+
+}
+
+/*Information */
+
+#info {
+}
+
+#imgCart {
+    float: left;
+    margin: 0 1em 1em 0; /* Отступы вокруг элемента */
+}
+
+/* Footer
+-----------------------------------------------------------------------------*/
+.footer {
+    margin: 3em auto 0; /* Отступы вокруг элемента */
+    height: 100px;
+    width: 900px;
+    position: relative;
+}
