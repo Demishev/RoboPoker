@@ -1,11 +1,12 @@
 package com.robopoker.resources;
 
-import com.robopoker.PasswordHashGenerator;
 import com.robopoker.dbModel.User;
 import com.robopoker.restModel.LoginRequest;
 import com.robopoker.restModel.LoginResponse;
 import com.robopoker.restModel.RegisterRequest;
 import com.robopoker.restModel.RegisterResponse;
+import com.robopoker.utilities.DateGenerator;
+import com.robopoker.utilities.PasswordHashGenerator;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -16,7 +17,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
-import java.util.Date;
 import java.util.logging.Logger;
 
 
@@ -38,6 +38,9 @@ public class UserResource extends Application {
 
     @Inject
     private PasswordHashGenerator passwordHashGenerator;
+
+    @Inject
+    DateGenerator dateGenerator;
 
     @POST
     @Path("/register")
@@ -75,13 +78,7 @@ public class UserResource extends Application {
     }
 
     private User generateNewUser(String email, String name, String password) {
-        User user = new User();
-        user.setEmail(email);
-        user.setName(name);
-        user.setPasswordHash(passwordHashGenerator.generateHashFromPassword(password));
-        user.setRegistrationDate(new Date());
-
-        return user;
+        return new User(email, name, passwordHashGenerator.generateHashFromPassword(password), dateGenerator.getCurrentDate());
     }
 
 
@@ -95,5 +92,9 @@ public class UserResource extends Application {
 
     public void setPasswordHashGenerator(PasswordHashGenerator passwordHashGenerator) {
         this.passwordHashGenerator = passwordHashGenerator;
+    }
+
+    public void setDateGenerator(DateGenerator dateGenerator) {
+        this.dateGenerator = dateGenerator;
     }
 }

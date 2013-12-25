@@ -1,4 +1,4 @@
-package com.robopoker;
+package com.robopoker.utilities;
 
 import javax.ejb.Stateless;
 

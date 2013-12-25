@@ -66,6 +66,16 @@ public class User implements Serializable {
     }
 
 
+    public User() {
+    }
+
+    public User(String email, String name, String passwordHash, Date registrationDate) {
+        this.email = email;
+        this.name = name;
+        this.passwordHash = passwordHash;
+        this.registrationDate = registrationDate;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -74,5 +84,29 @@ public class User implements Serializable {
                 ", passwordHash='" + passwordHash + '\'' +
                 ", registrationDate=" + registrationDate +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+
+        User user = (User) o;
+
+        if (!email.equals(user.email)) return false;
+        if (!name.equals(user.name)) return false;
+        if (!passwordHash.equals(user.passwordHash)) return false;
+        if (!registrationDate.equals(user.registrationDate)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = email.hashCode();
+        result = 31 * result + name.hashCode();
+        result = 31 * result + passwordHash.hashCode();
+        result = 31 * result + registrationDate.hashCode();
+        return result;
     }
 }
