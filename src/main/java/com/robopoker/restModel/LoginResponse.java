@@ -1,6 +1,6 @@
 package com.robopoker.restModel;
 
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -13,7 +13,7 @@ public class LoginResponse {
 
     private String token;
 
-    @XmlAttribute
+    @XmlElement
     public String getToken() {
         return token;
     }

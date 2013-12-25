@@ -1,4 +1,4 @@
-package com.robopoker.services;
+package com.robopoker.resources;
 
 import com.robopoker.PasswordHashGenerator;
 import com.robopoker.dbModel.User;
@@ -25,19 +25,19 @@ import java.util.logging.Logger;
  * Date: 25.11.13
  * Time: 17:26
  */
-@Path("/")
+@Path("/rest")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @RequestScoped
 public class UserResource extends Application {
     @Inject
-    Logger logger;
+    private Logger logger;
 
     @Inject
-    EntityManager em;
+    private EntityManager em;
 
     @Inject
-    PasswordHashGenerator passwordHashGenerator;
+    private PasswordHashGenerator passwordHashGenerator;
 
     @POST
     @Path("/register")
@@ -65,9 +65,6 @@ public class UserResource extends Application {
     public LoginResponse loginUser(LoginRequest request) {
         logger.info("Loggining request \n " + request.toString());
 
-        User user = em.find(User.class, request.getEmail());
-
-
         LoginResponse loginResponse = new LoginResponse();
 
         loginResponse.setToken("Some mock token");
@@ -75,7 +72,6 @@ public class UserResource extends Application {
 
         logger.info(loginResponse.toString());
         return loginResponse;
-
     }
 
     private User generateNewUser(String email, String name, String password) {
@@ -88,4 +84,16 @@ public class UserResource extends Application {
         return user;
     }
 
+
+    public void setLogger(Logger logger) {
+        this.logger = logger;
+    }
+
+    public void setEm(EntityManager em) {
+        this.em = em;
+    }
+
+    public void setPasswordHashGenerator(PasswordHashGenerator passwordHashGenerator) {
+        this.passwordHashGenerator = passwordHashGenerator;
+    }
 }

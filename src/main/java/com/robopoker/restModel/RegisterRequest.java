@@ -11,20 +11,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class RegisterRequest {
     @XmlElement
-    private String login;
-    @XmlElement
     private String email;
     @XmlElement
     private String name;
     @XmlElement
     private String password;
 
-    public String getLogin() {
-        return login;
+    public RegisterRequest() {
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public RegisterRequest(String email, String name, String password) {
+        this.email = email;
+        this.name = name;
+        this.password = password;
     }
 
     public String getEmail() {
@@ -54,8 +53,7 @@ public class RegisterRequest {
     @Override
     public String toString() {
         return "RegisterRequest{" +
-                "login='" + login + '\'' +
-                ", email='" + email + '\'' +
+                "email='" + email + '\'' +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 '}';

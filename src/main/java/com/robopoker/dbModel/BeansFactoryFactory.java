@@ -16,7 +16,7 @@ public class BeansFactoryFactory {
 
     @Produces
     public EntityManager getUserServiceEntityManager() {
-        return Persistence.createEntityManagerFactory("userServices").createEntityManager();
+        return Persistence.createEntityManagerFactory("EmbDerby").createEntityManager();
     }
 
     @Produces
