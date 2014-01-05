@@ -60,13 +60,15 @@ a:hover {
 
 .post {
 }
-.imgLanguage{
+
+.imgLanguage {
     float: right;
     display: block;
-    margin: 0.5em 1em  0.5em 0.5em;
+    margin: 0.5em 1em 0.5em 0.5em;
     padding: 0.1em;
 }
-#imgLogo{
+
+#imgLogo {
     float: left;
     margin: 25px 15px 0 50px;
 }
@@ -87,13 +89,13 @@ a:hover {
     background-color: rgba(171, 171, 164, 0.90);
     margin: 0;
     border-top-right-radius: 1em;
-   
+
 }
 
 /*------------- Sidebar ----------------*/
 
 #sidebar {
-    font-family:  Georgia, "Times New Roman", Times, serif;
+    font-family: Georgia, "Times New Roman", Times, serif;
     font-size: 180%;
     float: left;
     width: 245px;
@@ -125,35 +127,45 @@ a:hover {
 #sidebar a {
     color: #001000;
 }
-#sidebar a:hover{
+
+#sidebar a:hover {
     color: #0a1382;
     text-decoration: none;
 }
 
-/*Form*/
+/*---------Form--------*/
 
 #form {
+    font-size: 50%;
     margin: 2em 2em 2em 0;
     padding: 0.5em 0.5em;
-    font-size: small;
-    border: 1px solid #000000;
-    border-radius: 0.5em;
+    border-radius: 1em;
+    background-color: rgba(171, 171, 164, 0.90);
 }
 
-#signIn {
+#login {
     text-align: center;
     margin: 0.1em 0.1em;
+
 }
 
-.form {
-    border: 0.1em solid #001000;
-    border-radius: 0.5em;
-    margin: 0.2em 0.1em;  /* Отступы вокруг элемента */
+#input {
+    text-shadow: 1px 1px 1px #575757, 1px 1px 1px #ffffff;
+    text-align: center;
+    color: #000000;
+    font-size: 150%;
+
+}
+
+.registration {
+    border: 0.1em solid #4e4e4e;
+    margin: 0.2em 0.1em; /* Отступы вокруг элемента */
     outline: none;
     text-align: center;
+
 }
 
-#button{
+#button {
     text-align: center;
 
 }
