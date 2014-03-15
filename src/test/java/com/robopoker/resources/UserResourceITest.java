@@ -1,6 +1,7 @@
-package aradoblitz.jboss.rest;
+package com.robopoker.resources;
+
 import static com.jayway.restassured.RestAssured.given;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
@@ -10,10 +11,8 @@ import com.robopoker.restModel.LoginResponse;
 import com.robopoker.restModel.RegisterRequest;
 import com.robopoker.restModel.RegisterResponse;
 
+public class UserResourceITest {
 
-public class SayHelloRestServiceIT {
-
-	
 	@Test
 	public void registerNewUser() throws Exception {
 		
