@@ -13,7 +13,11 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>javax.ws.rs.core.Application</servlet-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/rest/login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>javax.ws.rs.core.Application</servlet-name>
+        <url-pattern>/rest/register</url-pattern>
     </servlet-mapping>
 
 </web-app>
