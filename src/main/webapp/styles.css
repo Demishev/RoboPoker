@@ -1,0 +1,217 @@
+body {
+    background: url(images/fonkarti9j_8847790_5160105.jpg) repeat-y center;
+    font-size: 0.9em;
+}
+
+#session {
+    text-align: right;
+    opacity: 1;
+}
+
+.sessionButton {
+    background-color: white;
+    width: 4em;
+    border-radius: 0.5em;
+}
+
+.table {
+    position: relative;
+    top: 10em;
+    left: 2em;
+
+    background-color: #47caff;
+
+    width: 40em;
+    height: 20em;
+    border-radius: 200px;
+
+    border: 0.5em solid #b8860b;
+}
+
+.deskCards {
+    position: absolute;
+
+    top: 5.5em;
+    left: 13em;
+}
+
+.deskPot {
+    position: absolute;
+
+    top: 10.5em;
+    left: 17em;
+
+    font-weight: bold;
+}
+
+.cardCombination {
+    position: absolute;
+
+    top: 12em;
+    left: 15em;
+
+    font-weight: bold;
+}
+
+.player {
+    position: absolute;
+
+    width: 9em;
+    height: 7em;
+    opacity: 0;
+}
+
+.player0 {
+    top: 0;
+    left: 0;
+}
+
+.player1 {
+    top: -2em;
+    left: 8em;
+}
+
+.player2 {
+    top: -2em;
+    left: 16em;
+}
+
+.player3 {
+    top: -2em;
+    left: 24em;
+}
+
+.player4 {
+    top: 0;
+    left: 32em;
+}
+
+.player5 {
+    top: 7em;
+    left: 38em;
+}
+
+.player6 {
+    top: 15em;
+    left: 32em;
+}
+
+.player7 {
+    top: 17em;
+    left: 24em;
+}
+
+.player8 {
+    top: 17em;
+    left: 16em;
+}
+
+.player9 {
+    top: 17em;
+    left: 8em;
+}
+
+.player10 {
+    top: 15em;
+    left: 0;
+}
+
+.player11 {
+    top: 7em;
+    left: -4em;
+}
+
+.name {
+    position: absolute;
+
+    text-align: center;
+
+    width: 7em;
+}
+
+.cards {
+    position: absolute;
+
+    top: 0.6em;
+    left: 0.5em;
+    width: 7em;
+
+    text-align: center;
+}
+
+.card {
+    position: absolute;
+
+    top: 0;
+    left: 0.2em;
+
+    border-radius: 0.5em;
+    list-style-type: none;
+    height: 3.7em;
+    width: 3em;
+    text-align: center;
+
+    background-image: url("cardDeck/blank.png");
+    background-size: 100%;
+}
+
+.card1 {
+    left: 3.4em;
+}
+
+.card2 {
+    left: 6.6em;
+}
+
+.card3 {
+    left: 9.8em;
+}
+
+.card4 {
+    left: 13em;
+}
+
+.balance {
+    position: absolute;
+    top: 4.7em;
+    left: 1.2em;
+
+    font-weight: bold;
+}
+
+.status {
+    position: absolute;
+    top: -1.1em;
+    left: 1.5em;
+
+    background-color: #47caff;
+    border-radius: 0.3em;
+}
+
+.pot {
+    position: absolute;
+    top: 5.7em;
+    left: 1.7em;
+}
+
+li {
+    list-style-type: none;
+}
+
+.mover {
+    background-color: #ff8c00;
+
+    border-radius: 1.5em;
+
+}
+
+.console {
+    position: absolute;
+
+    top: 10%;
+    right: 2em;
+
+    width: 25em;
+    height: 40em;
+}
+
