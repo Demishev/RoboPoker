@@ -67,10 +67,11 @@ public class UserResource extends Application {
     @Path("/login")
     public LoginResponse loginUser(LoginRequest request) {
         logger.info("Loggining request \n " + request.toString());
-
+        User user = em.find(User.class, request.getEmail());
+        
         LoginResponse loginResponse = new LoginResponse();
 
-        loginResponse.setToken("Some mock token");
+        loginResponse.setToken(user.getPasswordHash());
 
 
         logger.info(loginResponse.toString());

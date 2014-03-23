@@ -14,9 +14,13 @@ import java.util.logging.Logger;
  */
 public class BeansFactoryFactory {
 
-    @Produces
+    private static EntityManager entityManager;
+
+	@Produces
     public EntityManager getUserServiceEntityManager() {
-        return Persistence.createEntityManagerFactory("EmbDerby").createEntityManager();
+		if(entityManager == null)
+        entityManager = Persistence.createEntityManagerFactory("EmbDerby").createEntityManager();
+		return entityManager; 
     }
 
     @Produces
