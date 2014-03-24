@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>QUnit Example</title>
+  <link rel="stylesheet" href="qunit-1.14.0.css">
+</head>
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture">
+   <div class="entry">
+   <!--  private String email;
+    @XmlElement
+    private String name;
+    @XmlElement
+    private String password;  -->
+            <fieldset>
+                <legend> Регистрация </legend>
+                <form action=" ">
+                    <p> Имя:<input id="name" value="dima" type="text" name="name" size="5" maxlength="5" ></input > </p>
+                    <p> Фамилия:<input type="text" name="name" size="5" maxlength="5" > </input > </p>
+                    <p> Логин:<input type="text" name="name" size="5" maxlength="5" > </input > </p>
+                    <p> e-mail:<input id="email" value="dima@mail.com" type="text" name="name" size="5" maxlength="105" > </input > </p>
+                    <p> <label> Пароль:<input id="password" value="pass" type="password" name="password" size="30" maxlength="15"> </input > </label> </p>
+                    <p> <label>  Подтвердите пароль:<input type="password" name="password" size="30" maxlength="15"> </input > </label> </p>
+
+                    <p>
+                        <input type="submit" name="button1" value="send"> </input>
+                        <input type="reset" name="button2" value="reset"> </input>
+                    </p>
+            </fieldset>
+
+
+
+
+        </div>
+  </div>
+  <script src="qunit-1.14.0.js"></script>
+  <script src="tests.js"></script>
+  <script>
+  	test("Get registration data.",function(){
+  		
+  		equal(document.getElementById("name").value,"dima");
+  		equal(document.getElementById("email").value,"dima@mail.com");
+  		equal(document.getElementById("password").value,"pass");
+  	});
+  </script>
+</body>
+</html>
