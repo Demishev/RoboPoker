@@ -40,11 +40,22 @@
   <script src="tests.js"></script>
   <script>
   	test("Get registration data.",function(){
+  		var getName = function(){
+  			return document.getElementById("name").value;
+  		};
+  		var getEmail = function(){
+  			return document.getElementById("email").value;
+  		};
   		
-  		equal(document.getElementById("name").value,"dima");
-  		equal(document.getElementById("email").value,"dima@mail.com");
-  		equal(document.getElementById("password").value,"pass");
+  		var getPassword = function(){
+  			return document.getElementById("password").value;
+  		};
+
+  		equal(getName(),"dima");
+   		equal(getEmail(),"dima@mail.com");
+   		equal(getPassword(),"pass");
   	});
+  	
   	asyncTest("Send registration data",function(){
   		var request = '{"email":"user1.mail.com", "name":"user1", "password":"pass"}';
   		var result;
