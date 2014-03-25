@@ -36,6 +36,7 @@
         </div>
   </div>
   <script src="qunit-1.14.0.js"></script>
+  <script src="jquery-2.0.2.min.js"></script>
   <script src="tests.js"></script>
   <script>
   	test("Get registration data.",function(){
@@ -43,6 +44,26 @@
   		equal(document.getElementById("name").value,"dima");
   		equal(document.getElementById("email").value,"dima@mail.com");
   		equal(document.getElementById("password").value,"pass");
+  	});
+  	asyncTest("Send registration data",function(){
+  		var request = '{"email":"user1.mail.com", "name":"user1", "password":"pass"}';
+  		var result;
+  		expect(1);
+  		$.ajax({
+  			type:'POST',
+  			url: '/roboPoker-1.0-SNAPSHOT/rest/register',
+  			contentType:'application/json',
+  			data: request,
+  			success:function(data){
+  				
+  				result = data;
+  				deepEqual(result,{"status": "Susses"});
+  				start();
+  			},
+  			dataType:'json'
+  		},4000);
+  		
+  		
   	});
   </script>
 </body>
