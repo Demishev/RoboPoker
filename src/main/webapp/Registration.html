@@ -9,7 +9,14 @@
 <body>
 
 <!-------------------- start header ------------------->
-
+ <script src="jquery-2.0.2.min.js"></script>
+ <script src="user.js"></script>
+ <script>
+ var regist = function(){
+ 	sendRegisterRequest(newUserProvider());
+ }
+ 
+ </script>
 <div id="header">
 
     <a href="#"><img src="images/logo.PNG" alt="Robot" id="imgLogo" height="87" width="83"></a>
@@ -40,15 +47,15 @@
             <fieldset>
                 <legend> Регистрация </legend>
                 <form action=" ">
-                    <p> Имя:<input type="text" name="name" size="5" maxlength="5" ></input > </p>
+                    <p> Имя:<input id="name" type="text" name="name" size="5" maxlength="5" ></input > </p>
                     <p> Фамилия:<input type="text" name="name" size="5" maxlength="5" > </input > </p>
                     <p> Логин:<input type="text" name="name" size="5" maxlength="5" > </input > </p>
-                    <p> e-mail:<input type="text" name="name" size="5" maxlength="105" > </input > </p>
-                    <p> <label> Пароль:<input type="password" name="password" size="30" maxlength="15"> </input > </label> </p>
+                    <p> e-mail:<input id="email" type="text" name="name" size="5" maxlength="105" > </input > </p>
+                    <p> <label> Пароль:<input id="password" type="password" name="password" size="30" maxlength="15"> </input > </label> </p>
                     <p> <label>  Подтвердите пароль:<input type="password" name="password" size="30" maxlength="15"> </input > </label> </p>
 
                     <p>
-                        <input type="submit" name="button1" value="send"> </input>
+                        <input type="submit" name="button1" value="send" onclick="regist()"> </input>
                         <input type="reset" name="button2" value="reset"> </input>
                     </p>
             </fieldset>
