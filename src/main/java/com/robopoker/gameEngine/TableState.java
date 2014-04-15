@@ -16,6 +16,7 @@ public class TableState {
     private GameStage gameStage;
     private int dealerNumber;
     private List<Player> players;
+    private int lastMovedPlayerNumber;
 
     public ArrayList<GameCommand> getCommands() {
         return null;
@@ -35,5 +36,13 @@ public class TableState {
 
     public void setDealerNumber(int dealerNumber) {
         this.dealerNumber = dealerNumber;
+    }
+
+    public void setLastMovedPlayerNumber(int lastMovedPlayerNumber) {
+        this.lastMovedPlayerNumber = lastMovedPlayerNumber;
+    }
+
+    public void setGameStage(GameStage gameStage) {
+        this.gameStage = gameStage;
     }
 }

@@ -1,8 +1,10 @@
 package com.robopoker.gameEngine.gameplayprocessors;
 
+import com.robopoker.gameEngine.ChipHandler;
 import com.robopoker.gameEngine.TableState;
 import com.robopoker.gameStuff.GameStage;
 import com.robopoker.gameStuff.Player;
+import com.robopoker.gameStuff.PlayerAction;
 import com.robopoker.messaging.MessageEngine;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,10 +29,13 @@ public class InitGamePlayProcessorTest {
     private Player firstPlayerMock;
     private Player secondPlayerMock;
     private MessageEngine messageEngineMock;
+    private ChipHandler chipHandlerMock;
 
     @Before
     public void setUp() throws Exception {
-        processor = new InitGamePlayProcessor();
+        chipHandlerMock = mock(ChipHandler.class);
+
+        processor = new InitGamePlayProcessor(chipHandlerMock);
 
         tableStateMock = mock(TableState.class);
         when(tableStateMock.getGameStage()).thenReturn(GameStage.INIT);
@@ -104,5 +109,64 @@ public class InitGamePlayProcessorTest {
         processor.invoke(tableStateMock, messageEngineMock);
 
         verify(tableStateMock).setDealerNumber(2);
+    }
+
+    @Test
+    public void shouldAllPlayersSetStatusReadyWhenInvoke() throws Exception {
+        processor.invoke(tableStateMock, messageEngineMock);
+
+        verify(firstPlayerMock).setStatus(new PlayerAction(PlayerAction.Type.READY, 0));
+        verify(secondPlayerMock).setStatus(new PlayerAction(PlayerAction.Type.READY, 0));
+    }
+
+    @Test
+    public void shouldSecondPlayerGoesSmallBlindWhenDefaultInvoke() throws Exception {
+        processor.invoke(tableStateMock, messageEngineMock);
+
+        verify(chipHandlerMock).makeSmallBlindTransaction(firstPlayerMock, tableStateMock);
+    }
+
+    @Test
+    public void shouldNotFirstPlayerGoesSmallBlindWhenDefaultInvoke() throws Exception {
+        processor.invoke(tableStateMock, messageEngineMock);
+
+        verify(chipHandlerMock, never()).makeSmallBlindTransaction(secondPlayerMock, tableStateMock);
+    }
+
+    @Test
+    public void shouldFirstPlayerGoesBigBlindWhenDefaultInvoke() throws Exception {
+        processor.invoke(tableStateMock, messageEngineMock);
+
+        verify(chipHandlerMock).makeBigBlindTransaction(secondPlayerMock, tableStateMock);
+    }
+
+    @Test
+    public void shouldNotSecondPlayerGoesBigBlindWhenDefaultInvoke() throws Exception {
+        processor.invoke(tableStateMock, messageEngineMock);
+
+        verify(chipHandlerMock, never()).makeBigBlindTransaction(firstPlayerMock, tableStateMock);
+    }
+
+    @Test
+    public void shouldSetLastMoverNumberBigBlindMoverWhenDefaultInvoke() throws Exception {
+        processor.invoke(tableStateMock, messageEngineMock);
+
+        verify(tableStateMock).setLastMovedPlayerNumber(1);
+    }
+
+    @Test
+    public void shouldSetLastMoverNumberBigBlindMoverWhenDealerWas0() throws Exception {
+        when(tableStateMock.getDealerNumber()).thenReturn(0);
+
+        processor.invoke(tableStateMock, messageEngineMock);
+
+        verify(tableStateMock).setLastMovedPlayerNumber(0);
+    }
+
+    @Test
+    public void shouldSetGameStagePreflopWhenInvoke() throws Exception {
+        processor.invoke(tableStateMock, messageEngineMock);
+
+        verify(tableStateMock).setGameStage(GameStage.PREFLOP);
     }
 }
