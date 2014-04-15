@@ -1,6 +1,7 @@
 package com.robopoker.gameEngine;
 
 import com.robopoker.gameEngine.gamecommand.GameCommand;
+import com.robopoker.gameStuff.CardDeck;
 import com.robopoker.gameStuff.GameStage;
 import com.robopoker.gameStuff.Player;
 
@@ -17,6 +18,7 @@ public class TableState {
     private int dealerNumber;
     private List<Player> players;
     private int lastMovedPlayerNumber;
+    private CardDeck cardDeck;
 
     public ArrayList<GameCommand> getCommands() {
         return null;
@@ -44,5 +46,9 @@ public class TableState {
 
     public void setGameStage(GameStage gameStage) {
         this.gameStage = gameStage;
+    }
+
+    public void setCardDeck(CardDeck cardDeck) {
+        this.cardDeck = cardDeck;
     }
 }

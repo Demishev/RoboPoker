@@ -2,9 +2,7 @@ package com.robopoker.gameEngine.gameplayprocessors;
 
 import com.robopoker.gameEngine.ChipHandler;
 import com.robopoker.gameEngine.TableState;
-import com.robopoker.gameStuff.GameStage;
-import com.robopoker.gameStuff.Player;
-import com.robopoker.gameStuff.PlayerAction;
+import com.robopoker.gameStuff.*;
 import com.robopoker.messaging.MessageEngine;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,11 +29,20 @@ public class InitGamePlayProcessorTest {
     private MessageEngine messageEngineMock;
     private ChipHandler chipHandlerMock;
 
+    private CardDeckFactory cardDeckFactoryMock;
+    private CardDeck cardDeckMock;
+
+    private Card firstCardMock;
+    private Card secondCardMock;
+    private Card thirdCardMock;
+    private Card fourthCardMock;
+
     @Before
     public void setUp() throws Exception {
         chipHandlerMock = mock(ChipHandler.class);
+        resetCardDeckFactory();
 
-        processor = new InitGamePlayProcessor(chipHandlerMock);
+        processor = new InitGamePlayProcessor(chipHandlerMock, cardDeckFactoryMock);
 
         tableStateMock = mock(TableState.class);
         when(tableStateMock.getGameStage()).thenReturn(GameStage.INIT);
@@ -49,6 +56,22 @@ public class InitGamePlayProcessorTest {
         when(tableStateMock.getPlayers()).thenReturn(players);
 
         messageEngineMock = mock(MessageEngine.class);
+    }
+
+    private void resetCardDeckFactory() {
+        cardDeckFactoryMock = mock(CardDeckFactory.class);
+        cardDeckMock = mock(CardDeck.class);
+        firstCardMock = mock(Card.class);
+        secondCardMock = mock(Card.class);
+        thirdCardMock = mock(Card.class);
+        fourthCardMock = mock(Card.class);
+
+        when(cardDeckFactoryMock.generateNewCardDeck()).thenReturn(cardDeckMock);
+        when(cardDeckMock.getCard())
+                .thenReturn(firstCardMock)
+                .thenReturn(secondCardMock)
+                .thenReturn(thirdCardMock)
+                .thenReturn(fourthCardMock);
     }
 
     @Test
@@ -168,5 +191,20 @@ public class InitGamePlayProcessorTest {
         processor.invoke(tableStateMock, messageEngineMock);
 
         verify(tableStateMock).setGameStage(GameStage.PREFLOP);
+    }
+
+    @Test
+    public void shouldSetCardDeckToTableStateWhenDefaultInvoke() throws Exception {
+        processor.invoke(tableStateMock, messageEngineMock);
+
+        verify(tableStateMock).setCardDeck(cardDeckMock);
+    }
+
+    @Test
+    public void shouldGiveCardsToPlayersWhenDefaultInvoke() throws Exception {
+        processor.invoke(tableStateMock, messageEngineMock);
+
+        verify(firstPlayerMock).setPlayerCards(Arrays.asList(firstCardMock, secondCardMock));
+        verify(secondPlayerMock).setPlayerCards(Arrays.asList(thirdCardMock, fourthCardMock));
     }
 }

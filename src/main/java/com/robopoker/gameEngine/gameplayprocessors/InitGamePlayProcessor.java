@@ -2,11 +2,10 @@ package com.robopoker.gameEngine.gameplayprocessors;
 
 import com.robopoker.gameEngine.ChipHandler;
 import com.robopoker.gameEngine.TableState;
-import com.robopoker.gameStuff.GameStage;
-import com.robopoker.gameStuff.Player;
-import com.robopoker.gameStuff.PlayerAction;
+import com.robopoker.gameStuff.*;
 import com.robopoker.messaging.MessageEngine;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -16,9 +15,11 @@ import java.util.List;
  */
 public class InitGamePlayProcessor implements GamePlayProcessor {
     private final ChipHandler chipHandler;
+    private final CardDeckFactory cardDeckFactory;
 
-    public InitGamePlayProcessor(ChipHandler chipHandler) {
+    public InitGamePlayProcessor(ChipHandler chipHandler, CardDeckFactory cardDeckFactory) {
         this.chipHandler = chipHandler;
+        this.cardDeckFactory = cardDeckFactory;
     }
 
     @Override
@@ -32,7 +33,17 @@ public class InitGamePlayProcessor implements GamePlayProcessor {
         resetPlayersStatuses(tableState.getPlayers());
         makeSmallAndBigBlindBets(tableState);
 
+        setCards(tableState);
+
         tableState.setGameStage(GameStage.PREFLOP);
+    }
+
+    private void setCards(TableState tableState) {
+        final CardDeck cardDeck = cardDeckFactory.generateNewCardDeck();
+
+        tableState.setCardDeck(cardDeck);
+
+        tableState.getPlayers().stream().forEach(p -> p.setPlayerCards(Arrays.asList(cardDeck.getCard(), cardDeck.getCard())));
     }
 
     private void makeSmallAndBigBlindBets(TableState tableState) {

@@ -1,5 +1,7 @@
 package com.robopoker.gameStuff;
 
+import java.util.List;
+
 /**
  * User: Demishev
  * Date: 15.04.2014
@@ -7,6 +9,7 @@ package com.robopoker.gameStuff;
  */
 public class Player {
     private PlayerAction status;
+    private List<Card> playerCards;
 
     public PlayerAction getStatus() {
         return status;
@@ -14,5 +17,9 @@ public class Player {
 
     public void setStatus(PlayerAction status) {
         this.status = status;
+    }
+
+    public void setPlayerCards(List<Card> playerCards) {
+        this.playerCards = playerCards;
     }
 }

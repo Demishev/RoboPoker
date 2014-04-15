@@ -13,6 +13,10 @@ public class CardDeck {
     private final List<Card> cards = new ArrayList<>();
     private final Random random;
 
+    public CardDeck() {
+        random = new Random();
+    }
+
     CardDeck(int randomSeed) {
         random = new Random(randomSeed);
         generateCards();
