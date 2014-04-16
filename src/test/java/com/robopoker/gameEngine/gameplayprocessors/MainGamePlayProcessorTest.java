@@ -171,9 +171,22 @@ public class MainGamePlayProcessorTest {
         verify(chipHandlerMock).makeWantedMove(fourthPlayerMock, tableStateMock);
     }
 
-    //TODO Other move types
-    //TODO reset wanted move
-    //TODO handle move if it null
+    @Test
+    public void shouldSetNullToWantedMoveToSecondPlayerWhenDefaultInvocation() throws Exception {
+        processor.invoke(tableStateMock);
+
+        verify(secondPlayerMock).setWantedMove(null);
+    }
+
+    @Test
+    public void shouldMoverIsThirdPlayerWhenDefaultInvocationSecondPlayerStatusIsAllIn() throws Exception {
+        when(secondPlayerMock.getStatus()).thenReturn(ALL_IN_PLAYER_ACTION);
+
+        processor.invoke(tableStateMock);
+
+        verify(chipHandlerMock).makeWantedMove(thirdPlayerMock, tableStateMock);
+    }
+
     //TODO change game round to next one.
     //TODO change game round to last one.
     //TODO add a card (or three) when go one by one round.
