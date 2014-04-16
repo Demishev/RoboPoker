@@ -25,11 +25,6 @@ public class MainGamePlayProcessorTest {
     private final PlayerAction CHECK_PLAYER_ACTION = new PlayerAction(PlayerAction.Type.CHECK);
     private final PlayerAction ALL_IN_PLAYER_ACTION = new PlayerAction(PlayerAction.Type.ALL_IN);
     private final PlayerAction FOLD_PLAYER_ACTION = new PlayerAction(PlayerAction.Type.FOLD);
-    private final PlayerAction CALL_PLAYER_ACTION = new PlayerAction(PlayerAction.Type.CALL);
-    private final PlayerAction RISE_PLAYER_ACTION_100 = new PlayerAction(PlayerAction.Type.RISE, 100);
-    private final PlayerAction RISE_PLAYER_ACTION_50 = new PlayerAction(PlayerAction.Type.RISE, 50);
-    private final PlayerAction BET_PLAYER_ACTION_2 = new PlayerAction(PlayerAction.Type.BET, 2);
-    private final PlayerAction BET_PLAYER_ACTION_25 = new PlayerAction(PlayerAction.Type.BET, 25);
 
     private MainGamePlayProcessor processor;
 
@@ -197,6 +192,18 @@ public class MainGamePlayProcessorTest {
         verify(chipHandlerMock, never()).makeWantedMove(firstPlayerMock, tableStateMock);
     }
 
-    //TODO change game round to next one.
-    //TODO change game round to last one.
+    //TODO SIT_OUT is skipped game status.
+    //TODO when all are in call and one in rise. All with equal money on pot. -> go to next round.
+
+    //TODO preflop - flop.
+    //TODO flop - turn.
+    //TODO turn - river.
+    //TODO river - showdown.
+
+    //TODO When go to next round - need to update statuses.
+    //TODO When go to next round - need to add money to pot from players. (ChipHandler?)
+    //TODO When player has skipped status it needs to remain.
+    //TODO When status is not skipable - in needs to be changed on READY.
+    //TODO when all are in fold and one is not. -> go to final round.
+
 }

@@ -6,5 +6,5 @@ package com.robopoker.gameStuff;
  * Time: 12:36
  */
 public enum GameStage {
-    INIT, PREFLOP, FLOP, TURN, RIVER, SHOWDOWN, HIDDEN
+    INIT, PREFLOP, FLOP, TURN, RIVER, SHOWDOWN
 }

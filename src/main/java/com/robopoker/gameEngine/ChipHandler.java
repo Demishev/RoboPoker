@@ -8,7 +8,7 @@ import com.robopoker.gameStuff.Player;
  * Time: 15:29
  */
 public class ChipHandler {
-    public void makeSmallBlindTransaction(Player player, TableState tableState) {
+    public void makeSmallBlindTransaction(Player player, TableState tableState) {     //TODO code this class.
 
     }
 
