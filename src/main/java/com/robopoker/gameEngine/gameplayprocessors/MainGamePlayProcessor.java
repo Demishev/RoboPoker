@@ -24,6 +24,12 @@ public class MainGamePlayProcessor implements GamePlayProcessor {
 
     @Override
     public void invoke(TableState tableState) {
-        chipHandler.makeCheckMove(tableState.getPlayers().get(1), tableState);
+        chipHandler.makeCheckMove(tableState.getPlayers().get(findMoverNumber(tableState)), tableState);
+    }
+
+    private int findMoverNumber(TableState tableState) {
+        final int lastMovedPlayerNumber = tableState.getLastMovedPlayerNumber();
+        final int playersQuantity = tableState.getPlayers().size();
+        return (lastMovedPlayerNumber == playersQuantity - 1) ? 0 : lastMovedPlayerNumber + 1;
     }
 }

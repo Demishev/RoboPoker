@@ -117,8 +117,26 @@ public class MainGamePlayProcessorTest {
         verify(chipHandlerMock).makeCheckMove(secondPlayerMock, tableStateMock);
     }
 
-    //TODO Third player check move
-    //TODO First player check move
+    @Test
+    public void shouldThirdMoverMakesCheckWhenDefaultLastMovedPlayerNumberIs1() throws Exception {
+        when(thirdPlayerMock.getWantedMove()).thenReturn(CHECK_PLAYER_ACTION);
+        when(tableStateMock.getLastMovedPlayerNumber()).thenReturn(1);
+
+        processor.invoke(tableStateMock);
+
+        verify(chipHandlerMock).makeCheckMove(thirdPlayerMock, tableStateMock);
+    }
+
+    @Test
+    public void shouldFirstMoverMakesCheckWhenDefaultLastMovedPlayerNumberIs3() throws Exception {
+        when(firstPlayerMock.getWantedMove()).thenReturn(CHECK_PLAYER_ACTION);
+        when(tableStateMock.getLastMovedPlayerNumber()).thenReturn(3);
+
+        processor.invoke(tableStateMock);
+
+        verify(chipHandlerMock).makeCheckMove(firstPlayerMock, tableStateMock);
+    }
+
     //TODO Other move types
     //TODO reset wanted move
     //TODO handle move if it null
