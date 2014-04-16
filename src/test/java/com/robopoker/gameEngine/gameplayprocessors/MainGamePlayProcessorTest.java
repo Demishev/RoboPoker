@@ -137,7 +137,40 @@ public class MainGamePlayProcessorTest {
         verify(chipHandlerMock).makeWantedMove(firstPlayerMock, tableStateMock);
     }
 
-    //TODO Last mover number must be updated.
+    @Test
+    public void shouldLastMoverNumberIs1WhenDefaultInvocation() throws Exception {
+        processor.invoke(tableStateMock);
+
+        verify(tableStateMock).setLastMovedPlayerNumber(1);
+    }
+
+    @Test
+    public void shouldLastMoverNumberIs2WhenDefaultInvocationLastMoverNumberWas1() throws Exception {
+        when(tableStateMock.getLastMovedPlayerNumber()).thenReturn(1);
+        processor.invoke(tableStateMock);
+
+        verify(tableStateMock).setLastMovedPlayerNumber(2);
+    }
+
+    @Test
+    public void shouldMoverIsThirdPlayerWhenDefaultInvocationSecondPlayerStatusIsFold() throws Exception {
+        when(secondPlayerMock.getStatus()).thenReturn(FOLD_PLAYER_ACTION);
+
+        processor.invoke(tableStateMock);
+
+        verify(chipHandlerMock).makeWantedMove(thirdPlayerMock, tableStateMock);
+    }
+
+    @Test
+    public void shouldMoverIsForthPlayerWhenDefaultInvocationSecondAndThirdPlayersStatusesAreFold() throws Exception {
+        when(secondPlayerMock.getStatus()).thenReturn(FOLD_PLAYER_ACTION);
+        when(thirdPlayerMock.getStatus()).thenReturn(FOLD_PLAYER_ACTION);
+
+        processor.invoke(tableStateMock);
+
+        verify(chipHandlerMock).makeWantedMove(fourthPlayerMock, tableStateMock);
+    }
+
     //TODO Other move types
     //TODO reset wanted move
     //TODO handle move if it null

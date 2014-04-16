@@ -3,6 +3,7 @@ package com.robopoker.gameEngine.gameplayprocessors;
 import com.robopoker.gameEngine.ChipHandler;
 import com.robopoker.gameEngine.TableState;
 import com.robopoker.gameStuff.GameStage;
+import com.robopoker.gameStuff.PlayerAction;
 
 /**
  * User: Demishev
@@ -24,12 +25,24 @@ public class MainGamePlayProcessor implements GamePlayProcessor {
 
     @Override
     public void invoke(TableState tableState) {
-        chipHandler.makeCheckMove(tableState.getPlayers().get(findMoverNumber(tableState)), tableState);
+        final int moverNumber = findMoverNumber(tableState);
+
+        chipHandler.makeWantedMove(tableState.getPlayers().get(moverNumber), tableState);
+        tableState.setLastMovedPlayerNumber(moverNumber);
     }
 
     private int findMoverNumber(TableState tableState) {
         final int lastMovedPlayerNumber = tableState.getLastMovedPlayerNumber();
         final int playersQuantity = tableState.getPlayers().size();
-        return (lastMovedPlayerNumber == playersQuantity - 1) ? 0 : lastMovedPlayerNumber + 1;
+
+        int currentPlayerNumber = (lastMovedPlayerNumber == playersQuantity - 1) ? 0 : lastMovedPlayerNumber + 1;
+
+        while (tableState.getPlayers().get(currentPlayerNumber).getStatus().getType() == PlayerAction.Type.FOLD) {
+            currentPlayerNumber++;
+            if (currentPlayerNumber == playersQuantity + 1) {
+                currentPlayerNumber = 0;
+            }
+        }
+        return currentPlayerNumber;
     }
 }
