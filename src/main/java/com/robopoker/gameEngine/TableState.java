@@ -18,6 +18,11 @@ public class TableState {
     private int dealerNumber;
     private List<Player> players;
     private int lastMovedPlayerNumber;
+
+    public int getLastMovedPlayerNumber() {
+        return lastMovedPlayerNumber;
+    }
+
     private CardDeck cardDeck;
 
     public ArrayList<GameCommand> getCommands() {

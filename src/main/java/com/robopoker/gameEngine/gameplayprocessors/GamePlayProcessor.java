@@ -11,5 +11,5 @@ import com.robopoker.messaging.MessageEngine;
 public interface GamePlayProcessor {
     boolean isAppropriate(TableState tableState);
 
-    void invoke(TableState tableState, MessageEngine messageEngine);
+    void invoke(TableState tableState, MessageEngine messageEngine);          //TODO Message engine must be injected by constructor.
 }

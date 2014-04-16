@@ -11,6 +11,16 @@ public class Player {
     private PlayerAction status;
     private List<Card> playerCards;
 
+    private PlayerAction wantedMove;
+
+    public PlayerAction getWantedMove() {
+        return wantedMove;
+    }
+
+    public void setWantedMove(PlayerAction wantedMove) {
+        this.wantedMove = wantedMove;
+    }
+
     public PlayerAction getStatus() {
         return status;
     }

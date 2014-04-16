@@ -15,4 +15,8 @@ public class ChipHandler {
     public void makeBigBlindTransaction(Player player, TableState tableState) {
 
     }
+
+    public void makeCheckMove(Player player, TableState tableState) {
+
+    }
 }

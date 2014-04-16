@@ -1,14 +1,20 @@
 package com.robopoker.gameEngine.gameplayprocessors;
 
+import com.robopoker.gameEngine.ChipHandler;
 import com.robopoker.gameEngine.TableState;
 import com.robopoker.gameStuff.GameStage;
+import com.robopoker.gameStuff.Player;
+import com.robopoker.gameStuff.PlayerAction;
+import com.robopoker.messaging.MessageEngine;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * User: Demishev
@@ -16,16 +22,52 @@ import static org.mockito.Mockito.when;
  * Time: 18:26
  */
 public class MainGamePlayProcessorTest {
+    private final PlayerAction READY_PLAYER_ACTION = new PlayerAction(PlayerAction.Type.READY);
+    private final PlayerAction CHECK_PLAYER_ACTION = new PlayerAction(PlayerAction.Type.CHECK);
+    private final PlayerAction ALL_IN_PLAYER_ACTION = new PlayerAction(PlayerAction.Type.ALL_IN);
+    private final PlayerAction FOLD_PLAYER_ACTION = new PlayerAction(PlayerAction.Type.FOLD);
+    private final PlayerAction CALL_PLAYER_ACTION = new PlayerAction(PlayerAction.Type.CALL);
+    private final PlayerAction RISE_PLAYER_ACTION_100 = new PlayerAction(PlayerAction.Type.RISE, 100);
+    private final PlayerAction RISE_PLAYER_ACTION_50 = new PlayerAction(PlayerAction.Type.RISE, 50);
+    private final PlayerAction BET_PLAYER_ACTION_2 = new PlayerAction(PlayerAction.Type.BET, 2);
+    private final PlayerAction BET_PLAYER_ACTION_25 = new PlayerAction(PlayerAction.Type.BET, 25);
+
     private MainGamePlayProcessor processor;
 
     private TableState tableStateMock;
 
+    private Player firstPlayerMock;
+    private Player secondPlayerMock;
+    private Player thirdPlayerMock;
+    private Player fourthPlayerMock;
+    private List<Player> players;
+
+    private MessageEngine messageEngineMock;
+    private ChipHandler chipHandlerMock;
+
     @Before
     public void setUp() throws Exception {
-        tableStateMock = mock(TableState.class);
-        when(tableStateMock.getGameStage()).thenReturn(GameStage.PREFLOP);
+        resetPlayers();
 
-        processor = new MainGamePlayProcessor();
+        tableStateMock = mock(TableState.class);
+        when(tableStateMock.getPlayers()).thenReturn(players);
+        when(tableStateMock.getGameStage()).thenReturn(GameStage.PREFLOP);
+        when(tableStateMock.getLastMovedPlayerNumber()).thenReturn(0);
+
+        chipHandlerMock = mock(ChipHandler.class);
+
+        processor = new MainGamePlayProcessor(chipHandlerMock);
+    }
+
+    private void resetPlayers() {
+        firstPlayerMock = mock(Player.class);
+        secondPlayerMock = mock(Player.class);
+        thirdPlayerMock = mock(Player.class);
+        fourthPlayerMock = mock(Player.class);
+
+        players = Arrays.asList(firstPlayerMock, secondPlayerMock, thirdPlayerMock, fourthPlayerMock);
+
+        players.stream().forEach(p -> when(p.getStatus()).thenReturn(READY_PLAYER_ACTION));
     }
 
     @Test
@@ -67,4 +109,22 @@ public class MainGamePlayProcessorTest {
 
         assertFalse(processor.isAppropriate(tableStateMock));
     }
+
+    @Test
+    public void shouldSecondMoverMakesCheckWhenDefault() throws Exception {
+        when(firstPlayerMock.getWantedMove()).thenReturn(CHECK_PLAYER_ACTION);
+
+        processor.invoke(tableStateMock, messageEngineMock);
+
+        verify(chipHandlerMock).makeCheckMove(secondPlayerMock, tableStateMock);
+    }
+
+    //TODO Third player check move
+    //TODO First player check move
+    //TODO Other move types
+    //TODO reset wanted move
+    //TODO handle move if it null
+    //TODO change game round to next one.
+    //TODO change game round to last one.
+    //TODO add a card (or three) when go one by one round.
 }

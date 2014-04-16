@@ -1,13 +1,13 @@
 package com.robopoker.gameStuff;
 
-/**
- * User: Demishev
- * Date: 15.04.2014
- * Time: 13:46
- */
 public class PlayerAction {
     public enum Type {
-        READY
+        READY, SMALL_BLIND, BIG_BLIND, FOLD, SIT_OUT, ALL_IN, CALL, BET, RISE, CHECK
+    }
+
+    public PlayerAction(Type type) {
+        this.type = type;
+        this.value = 0;
     }
 
     private final Type type;

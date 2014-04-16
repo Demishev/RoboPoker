@@ -1,5 +1,6 @@
 package com.robopoker.gameEngine.gameplayprocessors;
 
+import com.robopoker.gameEngine.ChipHandler;
 import com.robopoker.gameEngine.TableState;
 import com.robopoker.gameStuff.GameStage;
 import com.robopoker.messaging.MessageEngine;
@@ -10,6 +11,12 @@ import com.robopoker.messaging.MessageEngine;
  * Time: 18:25
  */
 public class MainGamePlayProcessor implements GamePlayProcessor {
+    private final ChipHandler chipHandler;
+
+    public MainGamePlayProcessor(ChipHandler chipHandler) {
+        this.chipHandler = chipHandler;
+    }
+
     @Override
     public boolean isAppropriate(TableState tableState) {
         final GameStage gameStage = tableState.getGameStage();
@@ -18,6 +25,6 @@ public class MainGamePlayProcessor implements GamePlayProcessor {
 
     @Override
     public void invoke(TableState tableState, MessageEngine messageEngine) {
-
+        chipHandler.makeCheckMove(tableState.getPlayers().get(1), tableState);
     }
 }
