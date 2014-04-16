@@ -1,6 +1,7 @@
 package com.robopoker.gameEngine;
 
 import com.robopoker.gameEngine.gamecommand.GameCommand;
+import com.robopoker.gameStuff.Card;
 import com.robopoker.gameStuff.CardDeck;
 import com.robopoker.gameStuff.GameStage;
 import com.robopoker.gameStuff.Player;
@@ -18,12 +19,16 @@ public class TableState {
     private int dealerNumber;
     private List<Player> players;
     private int lastMovedPlayerNumber;
+    private List<Card> deskCards;
+    private CardDeck cardDeck;
 
     public int getLastMovedPlayerNumber() {
         return lastMovedPlayerNumber;
     }
 
-    private CardDeck cardDeck;
+    public void setLastMovedPlayerNumber(int lastMovedPlayerNumber) {
+        this.lastMovedPlayerNumber = lastMovedPlayerNumber;
+    }
 
     public ArrayList<GameCommand> getCommands() {
         return null;
@@ -33,27 +38,27 @@ public class TableState {
         return gameStage;
     }
 
-    public int getDealerNumber() {
-        return dealerNumber;
+    public void setGameStage(GameStage gameStage) {
+        this.gameStage = gameStage;
     }
 
-    public List<Player> getPlayers() {
-        return players;
+    public int getDealerNumber() {
+        return dealerNumber;
     }
 
     public void setDealerNumber(int dealerNumber) {
         this.dealerNumber = dealerNumber;
     }
 
-    public void setLastMovedPlayerNumber(int lastMovedPlayerNumber) {
-        this.lastMovedPlayerNumber = lastMovedPlayerNumber;
-    }
-
-    public void setGameStage(GameStage gameStage) {
-        this.gameStage = gameStage;
+    public List<Player> getPlayers() {
+        return players;
     }
 
     public void setCardDeck(CardDeck cardDeck) {
         this.cardDeck = cardDeck;
+    }
+
+    public void setDeskCards(List<Card> deskCards) {
+        this.deskCards = deskCards;
     }
 }

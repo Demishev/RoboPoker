@@ -43,6 +43,10 @@ public class InitGamePlayProcessor implements GamePlayProcessor {
         tableState.setCardDeck(cardDeck);
 
         tableState.getPlayers().stream().forEach(p -> p.setPlayerCards(Arrays.asList(cardDeck.getCard(), cardDeck.getCard())));
+
+        List<Card> descCards = Arrays.asList(cardDeck.getCard(), cardDeck.getCard(), cardDeck.getCard(), cardDeck.getCard(), cardDeck.getCard());
+
+        tableState.setDeskCards(descCards);
     }
 
     private void makeSmallAndBigBlindBets(TableState tableState) {

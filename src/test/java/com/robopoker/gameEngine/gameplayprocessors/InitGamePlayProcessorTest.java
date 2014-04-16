@@ -35,6 +35,12 @@ public class InitGamePlayProcessorTest {
     private Card thirdCardMock;
     private Card fourthCardMock;
 
+    private Card deskCard1;
+    private Card deskCard2;
+    private Card deskCard3;
+    private Card deskCard4;
+    private Card deskCard5;
+
     @Before
     public void setUp() throws Exception {
         chipHandlerMock = mock(ChipHandler.class);
@@ -58,17 +64,29 @@ public class InitGamePlayProcessorTest {
     private void resetCardDeckFactory() {
         cardDeckFactoryMock = mock(CardDeckFactory.class);
         cardDeckMock = mock(CardDeck.class);
+
         firstCardMock = mock(Card.class);
         secondCardMock = mock(Card.class);
         thirdCardMock = mock(Card.class);
         fourthCardMock = mock(Card.class);
 
-        when(cardDeckFactoryMock.generateNewCardDeck()).thenReturn(cardDeckMock);
+        deskCard1 = mock(Card.class);
+        deskCard2 = mock(Card.class);
+        deskCard3 = mock(Card.class);
+        deskCard4 = mock(Card.class);
+        deskCard5 = mock(Card.class);
+
         when(cardDeckMock.getCard())
                 .thenReturn(firstCardMock)
                 .thenReturn(secondCardMock)
                 .thenReturn(thirdCardMock)
-                .thenReturn(fourthCardMock);
+                .thenReturn(fourthCardMock)
+                .thenReturn(deskCard1)
+                .thenReturn(deskCard2)
+                .thenReturn(deskCard3)
+                .thenReturn(deskCard4)
+                .thenReturn(deskCard5);
+        when(cardDeckFactoryMock.generateNewCardDeck()).thenReturn(cardDeckMock);
     }
 
     @Test
@@ -203,5 +221,12 @@ public class InitGamePlayProcessorTest {
 
         verify(firstPlayerMock).setPlayerCards(Arrays.asList(firstCardMock, secondCardMock));
         verify(secondPlayerMock).setPlayerCards(Arrays.asList(thirdCardMock, fourthCardMock));
+    }
+
+    @Test
+    public void should5CardsSetToTableWhenDefaultInvoke() throws Exception {
+        processor.invoke(tableStateMock);
+
+        verify(tableStateMock).setDeskCards(Arrays.asList(deskCard1, deskCard2, deskCard3, deskCard4, deskCard5));
     }
 }

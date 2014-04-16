@@ -187,7 +187,16 @@ public class MainGamePlayProcessorTest {
         verify(chipHandlerMock).makeWantedMove(thirdPlayerMock, tableStateMock);
     }
 
+    @Test
+    public void shouldNoMoveFirstPlayerWhenAllPlayerStatusesButFirstAreFold() throws Exception {
+        players.stream().filter(p -> p != firstPlayerMock)
+                .forEach(p -> when(p.getStatus()).thenReturn(FOLD_PLAYER_ACTION));
+
+        processor.invoke(tableStateMock);
+
+        verify(chipHandlerMock, never()).makeWantedMove(firstPlayerMock, tableStateMock);
+    }
+
     //TODO change game round to next one.
     //TODO change game round to last one.
-    //TODO add a card (or three) when go one by one round.
 }

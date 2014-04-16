@@ -30,11 +30,14 @@ public class MainGamePlayProcessor implements GamePlayProcessor {
     @Override
     public void invoke(TableState tableState) {
         final int moverNumber = findMoverNumber(tableState);
-        final Player mover = tableState.getPlayers().get(moverNumber);
 
-        chipHandler.makeWantedMove(mover, tableState);
-        mover.setWantedMove(null);
-        tableState.setLastMovedPlayerNumber(moverNumber);
+        if (moverNumber != -1) {
+            final Player mover = tableState.getPlayers().get(moverNumber);
+
+            chipHandler.makeWantedMove(mover, tableState);
+            mover.setWantedMove(null);
+            tableState.setLastMovedPlayerNumber(moverNumber);
+        }
     }
 
     private int findMoverNumber(TableState tableState) {
@@ -43,13 +46,13 @@ public class MainGamePlayProcessor implements GamePlayProcessor {
 
         int currentPlayerNumber = (lastMovedPlayerNumber == playersQuantity - 1) ? 0 : lastMovedPlayerNumber + 1;
 
-        while (isSkippedPlayerStatus(tableState, currentPlayerNumber)) {
+        while (lastMovedPlayerNumber != currentPlayerNumber && isSkippedPlayerStatus(tableState, currentPlayerNumber)) {
             currentPlayerNumber++;
-            if (currentPlayerNumber == playersQuantity + 1) {
+            if (currentPlayerNumber == playersQuantity) {
                 currentPlayerNumber = 0;
             }
         }
-        return currentPlayerNumber;
+        return lastMovedPlayerNumber != currentPlayerNumber ? currentPlayerNumber : -1;
     }
 
     private boolean isSkippedPlayerStatus(TableState tableState, int currentPlayerNumber) {
