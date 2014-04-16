@@ -114,7 +114,7 @@ public class MainGamePlayProcessorTest {
 
         processor.invoke(tableStateMock);
 
-        verify(chipHandlerMock).makeCheckMove(secondPlayerMock, tableStateMock);
+        verify(chipHandlerMock).makeWantedMove(secondPlayerMock, tableStateMock);
     }
 
     @Test
@@ -124,7 +124,7 @@ public class MainGamePlayProcessorTest {
 
         processor.invoke(tableStateMock);
 
-        verify(chipHandlerMock).makeCheckMove(thirdPlayerMock, tableStateMock);
+        verify(chipHandlerMock).makeWantedMove(thirdPlayerMock, tableStateMock);
     }
 
     @Test
@@ -134,9 +134,10 @@ public class MainGamePlayProcessorTest {
 
         processor.invoke(tableStateMock);
 
-        verify(chipHandlerMock).makeCheckMove(firstPlayerMock, tableStateMock);
+        verify(chipHandlerMock).makeWantedMove(firstPlayerMock, tableStateMock);
     }
 
+    //TODO Last mover number must be updated.
     //TODO Other move types
     //TODO reset wanted move
     //TODO handle move if it null

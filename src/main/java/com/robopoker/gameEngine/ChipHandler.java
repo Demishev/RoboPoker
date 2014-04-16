@@ -16,7 +16,7 @@ public class ChipHandler {
 
     }
 
-    public void makeCheckMove(Player player, TableState tableState) {
+    public void makeWantedMove(Player player, TableState tableState) {
 
     }
 }
