@@ -44,6 +44,6 @@ public class TableEngine {
     private void makeMove() {
         gamePlayProcessorList.stream()
                 .filter(processor -> processor.isAppropriate(tableState))
-                .findFirst().get().invoke(tableState, messageEngine);
+                .findFirst().get().invoke(tableState);
     }
 }

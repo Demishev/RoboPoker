@@ -107,8 +107,8 @@ public class TableEngineTest {
     public void shouldInvokeFirstGameProcessorWhenUpdate() throws Exception {
         tableEngine.update();
 
-        verify(firstGamePlayProcessorMock).invoke(tableStateMock, messageEngineMock);
-        verify(secondGamePlayProcessorMock, never()).invoke(tableStateMock, messageEngineMock);
+        verify(firstGamePlayProcessorMock).invoke(tableStateMock);
+        verify(secondGamePlayProcessorMock, never()).invoke(tableStateMock);
     }
 
     @Test
@@ -117,7 +117,7 @@ public class TableEngineTest {
 
         tableEngine.update();
 
-        verify(firstGamePlayProcessorMock).invoke(tableStateMock, messageEngineMock);
-        verify(secondGamePlayProcessorMock, never()).invoke(tableStateMock, messageEngineMock);
+        verify(firstGamePlayProcessorMock).invoke(tableStateMock);
+        verify(secondGamePlayProcessorMock, never()).invoke(tableStateMock);
     }
 }

@@ -5,7 +5,6 @@ import com.robopoker.gameEngine.TableState;
 import com.robopoker.gameStuff.GameStage;
 import com.robopoker.gameStuff.Player;
 import com.robopoker.gameStuff.PlayerAction;
-import com.robopoker.messaging.MessageEngine;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -42,7 +41,6 @@ public class MainGamePlayProcessorTest {
     private Player fourthPlayerMock;
     private List<Player> players;
 
-    private MessageEngine messageEngineMock;
     private ChipHandler chipHandlerMock;
 
     @Before
@@ -114,7 +112,7 @@ public class MainGamePlayProcessorTest {
     public void shouldSecondMoverMakesCheckWhenDefault() throws Exception {
         when(firstPlayerMock.getWantedMove()).thenReturn(CHECK_PLAYER_ACTION);
 
-        processor.invoke(tableStateMock, messageEngineMock);
+        processor.invoke(tableStateMock);
 
         verify(chipHandlerMock).makeCheckMove(secondPlayerMock, tableStateMock);
     }

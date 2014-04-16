@@ -3,7 +3,6 @@ package com.robopoker.gameEngine.gameplayprocessors;
 import com.robopoker.gameEngine.ChipHandler;
 import com.robopoker.gameEngine.TableState;
 import com.robopoker.gameStuff.*;
-import com.robopoker.messaging.MessageEngine;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,7 +27,7 @@ public class InitGamePlayProcessor implements GamePlayProcessor {
     }
 
     @Override
-    public void invoke(TableState tableState, MessageEngine messageEngine) {
+    public void invoke(TableState tableState) {
         changeDealerNumber(tableState);
         resetPlayersStatuses(tableState.getPlayers());
         makeSmallAndBigBlindBets(tableState);

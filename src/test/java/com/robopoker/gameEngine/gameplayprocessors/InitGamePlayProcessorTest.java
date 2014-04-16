@@ -3,7 +3,6 @@ package com.robopoker.gameEngine.gameplayprocessors;
 import com.robopoker.gameEngine.ChipHandler;
 import com.robopoker.gameEngine.TableState;
 import com.robopoker.gameStuff.*;
-import com.robopoker.messaging.MessageEngine;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,7 +25,6 @@ public class InitGamePlayProcessorTest {
     private TableState tableStateMock;
     private Player firstPlayerMock;
     private Player secondPlayerMock;
-    private MessageEngine messageEngineMock;
     private ChipHandler chipHandlerMock;
 
     private CardDeckFactory cardDeckFactoryMock;
@@ -55,7 +53,6 @@ public class InitGamePlayProcessorTest {
 
         when(tableStateMock.getPlayers()).thenReturn(players);
 
-        messageEngineMock = mock(MessageEngine.class);
     }
 
     private void resetCardDeckFactory() {
@@ -100,7 +97,7 @@ public class InitGamePlayProcessorTest {
 
     @Test
     public void shouldSetDealerNumber0WhenDealerNumberWasMinusOne() throws Exception {
-        processor.invoke(tableStateMock, messageEngineMock);
+        processor.invoke(tableStateMock);
 
         verify(tableStateMock).setDealerNumber(0);
     }
@@ -109,7 +106,7 @@ public class InitGamePlayProcessorTest {
     public void shouldSetDealerNumber1WhenDealerNumber0() throws Exception {
         when(tableStateMock.getDealerNumber()).thenReturn(0);
 
-        processor.invoke(tableStateMock, messageEngineMock);
+        processor.invoke(tableStateMock);
 
         verify(tableStateMock).setDealerNumber(1);
     }
@@ -118,7 +115,7 @@ public class InitGamePlayProcessorTest {
     public void shouldSetDealerNumber0WhenDealerNumber1() throws Exception {
         when(tableStateMock.getDealerNumber()).thenReturn(1);
 
-        processor.invoke(tableStateMock, messageEngineMock);
+        processor.invoke(tableStateMock);
 
         verify(tableStateMock).setDealerNumber(0);
     }
@@ -129,14 +126,14 @@ public class InitGamePlayProcessorTest {
         when(tableStateMock.getPlayers())
                 .thenReturn(Arrays.asList(firstPlayerMock, secondPlayerMock, thirdPlayerMock));
 
-        processor.invoke(tableStateMock, messageEngineMock);
+        processor.invoke(tableStateMock);
 
         verify(tableStateMock).setDealerNumber(2);
     }
 
     @Test
     public void shouldAllPlayersSetStatusReadyWhenInvoke() throws Exception {
-        processor.invoke(tableStateMock, messageEngineMock);
+        processor.invoke(tableStateMock);
 
         verify(firstPlayerMock).setStatus(new PlayerAction(PlayerAction.Type.READY, 0));
         verify(secondPlayerMock).setStatus(new PlayerAction(PlayerAction.Type.READY, 0));
@@ -144,35 +141,35 @@ public class InitGamePlayProcessorTest {
 
     @Test
     public void shouldSecondPlayerGoesSmallBlindWhenDefaultInvoke() throws Exception {
-        processor.invoke(tableStateMock, messageEngineMock);
+        processor.invoke(tableStateMock);
 
         verify(chipHandlerMock).makeSmallBlindTransaction(firstPlayerMock, tableStateMock);
     }
 
     @Test
     public void shouldNotFirstPlayerGoesSmallBlindWhenDefaultInvoke() throws Exception {
-        processor.invoke(tableStateMock, messageEngineMock);
+        processor.invoke(tableStateMock);
 
         verify(chipHandlerMock, never()).makeSmallBlindTransaction(secondPlayerMock, tableStateMock);
     }
 
     @Test
     public void shouldFirstPlayerGoesBigBlindWhenDefaultInvoke() throws Exception {
-        processor.invoke(tableStateMock, messageEngineMock);
+        processor.invoke(tableStateMock);
 
         verify(chipHandlerMock).makeBigBlindTransaction(secondPlayerMock, tableStateMock);
     }
 
     @Test
     public void shouldNotSecondPlayerGoesBigBlindWhenDefaultInvoke() throws Exception {
-        processor.invoke(tableStateMock, messageEngineMock);
+        processor.invoke(tableStateMock);
 
         verify(chipHandlerMock, never()).makeBigBlindTransaction(firstPlayerMock, tableStateMock);
     }
 
     @Test
     public void shouldSetLastMoverNumberBigBlindMoverWhenDefaultInvoke() throws Exception {
-        processor.invoke(tableStateMock, messageEngineMock);
+        processor.invoke(tableStateMock);
 
         verify(tableStateMock).setLastMovedPlayerNumber(1);
     }
@@ -181,28 +178,28 @@ public class InitGamePlayProcessorTest {
     public void shouldSetLastMoverNumberBigBlindMoverWhenDealerWas0() throws Exception {
         when(tableStateMock.getDealerNumber()).thenReturn(0);
 
-        processor.invoke(tableStateMock, messageEngineMock);
+        processor.invoke(tableStateMock);
 
         verify(tableStateMock).setLastMovedPlayerNumber(0);
     }
 
     @Test
     public void shouldSetGameStagePreflopWhenInvoke() throws Exception {
-        processor.invoke(tableStateMock, messageEngineMock);
+        processor.invoke(tableStateMock);
 
         verify(tableStateMock).setGameStage(GameStage.PREFLOP);
     }
 
     @Test
     public void shouldSetCardDeckToTableStateWhenDefaultInvoke() throws Exception {
-        processor.invoke(tableStateMock, messageEngineMock);
+        processor.invoke(tableStateMock);
 
         verify(tableStateMock).setCardDeck(cardDeckMock);
     }
 
     @Test
     public void shouldGiveCardsToPlayersWhenDefaultInvoke() throws Exception {
-        processor.invoke(tableStateMock, messageEngineMock);
+        processor.invoke(tableStateMock);
 
         verify(firstPlayerMock).setPlayerCards(Arrays.asList(firstCardMock, secondCardMock));
         verify(secondPlayerMock).setPlayerCards(Arrays.asList(thirdCardMock, fourthCardMock));

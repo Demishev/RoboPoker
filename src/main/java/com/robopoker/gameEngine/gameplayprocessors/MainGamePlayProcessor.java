@@ -3,7 +3,6 @@ package com.robopoker.gameEngine.gameplayprocessors;
 import com.robopoker.gameEngine.ChipHandler;
 import com.robopoker.gameEngine.TableState;
 import com.robopoker.gameStuff.GameStage;
-import com.robopoker.messaging.MessageEngine;
 
 /**
  * User: Demishev
@@ -24,7 +23,7 @@ public class MainGamePlayProcessor implements GamePlayProcessor {
     }
 
     @Override
-    public void invoke(TableState tableState, MessageEngine messageEngine) {
+    public void invoke(TableState tableState) {
         chipHandler.makeCheckMove(tableState.getPlayers().get(1), tableState);
     }
 }

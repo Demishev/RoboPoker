@@ -1,7 +1,6 @@
 package com.robopoker.gameEngine.gameplayprocessors;
 
 import com.robopoker.gameEngine.TableState;
-import com.robopoker.messaging.MessageEngine;
 
 /**
  * User: Demishev
@@ -11,5 +10,5 @@ import com.robopoker.messaging.MessageEngine;
 public interface GamePlayProcessor {
     boolean isAppropriate(TableState tableState);
 
-    void invoke(TableState tableState, MessageEngine messageEngine);          //TODO Message engine must be injected by constructor.
+    void invoke(TableState tableState);
 }
