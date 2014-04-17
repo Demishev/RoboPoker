@@ -191,4 +191,33 @@ public class ChipHandlerTest {
 
         verify(firstPlayerMock).setBetValue(200);
     }
+
+    @Test
+    public void shouldPlayerBet1000WhenAllInTransaction() throws Exception {
+        when(firstPlayerMock.getWantedMove()).thenReturn(new PlayerAction(PlayerAction.Type.ALL_IN));
+
+        chipHandler.makeWantedMove(firstPlayerMock, tableStateMock);
+
+        verify(firstPlayerMock).setStatus(new PlayerAction(PlayerAction.Type.ALL_IN, 1000));
+    }
+
+    @Test
+    public void shouldPlayerBet500WhenAllInTransactionWhenPlayerBalanceIs500() throws Exception {
+        when(firstPlayerMock.getBalance()).thenReturn(500);
+        when(firstPlayerMock.getWantedMove()).thenReturn(new PlayerAction(PlayerAction.Type.ALL_IN));
+
+        chipHandler.makeWantedMove(firstPlayerMock, tableStateMock);
+
+        verify(firstPlayerMock).setStatus(new PlayerAction(PlayerAction.Type.ALL_IN, 500));
+    }
+
+    @Test
+    public void shouldPlayerBet5_000WhenAllInTransactionWhenPlayerBalanceIs5_000() throws Exception {
+        when(firstPlayerMock.getBalance()).thenReturn(5_000);
+        when(firstPlayerMock.getWantedMove()).thenReturn(new PlayerAction(PlayerAction.Type.ALL_IN));
+
+        chipHandler.makeWantedMove(firstPlayerMock, tableStateMock);
+
+        verify(firstPlayerMock).setStatus(new PlayerAction(PlayerAction.Type.ALL_IN, 5_000));
+    }
 }

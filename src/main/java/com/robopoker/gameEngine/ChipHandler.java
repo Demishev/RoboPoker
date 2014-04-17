@@ -24,7 +24,7 @@ public class ChipHandler {
     }
 
     public void makeWantedMove(Player player, TableState tableState) {
-
+        makeChipTransaction(player, PlayerAction.Type.ALL_IN, player.getBalance());
     }
 
     private void makeChipTransaction(Player player, PlayerAction.Type wantedStatus, int wantedBet) {
