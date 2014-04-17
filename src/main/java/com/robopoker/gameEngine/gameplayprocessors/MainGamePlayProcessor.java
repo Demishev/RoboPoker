@@ -83,13 +83,9 @@ public class MainGamePlayProcessor implements GamePlayProcessor {
     }
 
     private boolean playerNeedsToMakeABet(List<Player> players, int currentPlayerNumber) {
-        final int maxBet = findMaxBet(players);
+        final int maxBet = chipHandler.findMaxBet(players);
         return players.get(currentPlayerNumber).getBetValue() < maxBet ||
                 players.get(currentPlayerNumber).getStatus().getType() == PlayerAction.Type.READY;
-    }
-
-    private int findMaxBet(List<Player> players) {
-        return players.stream().max((o1, o2) -> o1.getBetValue() - o2.getBetValue()).get().getBetValue();
     }
 
     private boolean isSkippedPlayerStatus(Player player) {

@@ -48,7 +48,7 @@ public class ChipHandler {
             minBet = tableState.getSmallBlindValue() * 4;
         }
         List<Player> players = tableState.getPlayers();
-        final int callValue = players.stream().max((o1, o2) -> o1.getBetValue() - o2.getBetValue()).get().getBetValue();
+        final int callValue = findMaxBet(players);
 
         final int wantedValue = player.getWantedMove().getValue();
 
@@ -59,6 +59,10 @@ public class ChipHandler {
             return minBet;
         }
         return wantedValue;
+    }
+
+    public int findMaxBet(List<Player> players) {
+        return players.stream().max((o1, o2) -> o1.getBetValue() - o2.getBetValue()).get().getBetValue();
     }
 
     private void makeChipTransaction(Player player, PlayerAction.Type wantedStatus, int wantedBet) {
