@@ -10,25 +10,33 @@ import com.robopoker.gameStuff.PlayerAction;
  */
 public class ChipHandler {
     public void makeSmallBlindTransaction(Player player, TableState tableState) {
-        final int smallBlindValue = tableState.getSmallBlindValue();
-        final int balance = player.getBalance();
+        final int wantedBet = tableState.getSmallBlindValue();
+        final PlayerAction.Type wantedStatus = PlayerAction.Type.SMALL_BLIND;
 
-        if (balance > smallBlindValue) {
-            player.setStatus(new PlayerAction(PlayerAction.Type.SMALL_BLIND, smallBlindValue));
-            player.setBalance(balance - smallBlindValue);
-            player.setBetValue(smallBlindValue);
+        makeChipTransaction(player, wantedStatus, wantedBet);
+    }
+
+    public void makeBigBlindTransaction(Player player, TableState tableState) {
+        final int wantedBet = 2 * tableState.getSmallBlindValue();
+        final PlayerAction.Type wantedStatus = PlayerAction.Type.BIG_BLIND;
+
+        makeChipTransaction(player, wantedStatus, wantedBet);
+    }
+
+    public void makeWantedMove(Player player, TableState tableState) {
+
+    }
+
+    private void makeChipTransaction(Player player, PlayerAction.Type wantedStatus, int wantedBet) {
+        final int balance = player.getBalance();
+        if (balance > wantedBet) {
+            player.setStatus(new PlayerAction(wantedStatus, wantedBet));
+            player.setBalance(balance - wantedBet);
+            player.setBetValue(wantedBet);
         } else {
             player.setStatus(new PlayerAction(PlayerAction.Type.ALL_IN, balance));
             player.setBetValue(balance);
             player.setBalance(0);
         }
-    }
-
-    public void makeBigBlindTransaction(Player player, TableState tableState) {
-
-    }
-
-    public void makeWantedMove(Player player, TableState tableState) {
-
     }
 }

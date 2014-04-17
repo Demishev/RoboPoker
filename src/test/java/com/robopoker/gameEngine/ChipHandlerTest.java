@@ -177,4 +177,18 @@ public class ChipHandlerTest {
 
         verify(firstPlayerMock, never()).setBetValue(1000);
     }
+
+    @Test
+    public void shouldSetStatusBigBlind_200ToFirstPlayerWhenMakeBigBlindTransaction() throws Exception {
+        chipHandler.makeBigBlindTransaction(firstPlayerMock, tableStateMock);
+
+        verify(firstPlayerMock).setStatus(new PlayerAction(PlayerAction.Type.BIG_BLIND, 200));
+    }
+
+    @Test
+    public void shouldSetPlayerBet200WhenBigBlind() throws Exception {
+        chipHandler.makeBigBlindTransaction(firstPlayerMock, tableStateMock);
+
+        verify(firstPlayerMock).setBetValue(200);
+    }
 }
