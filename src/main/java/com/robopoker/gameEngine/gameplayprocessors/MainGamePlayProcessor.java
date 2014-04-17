@@ -37,6 +37,12 @@ public class MainGamePlayProcessor implements GamePlayProcessor {
             chipHandler.makeWantedMove(mover, tableState);
             mover.setWantedMove(null);
             tableState.setLastMovedPlayerNumber(moverNumber);
+        } else {
+            int moneyToPot = tableState.getPot();
+            for (Player player : tableState.getPlayers()) {
+                moneyToPot += player.getBetValue();
+            }
+            tableState.setPot(moneyToPot);
         }
     }
 

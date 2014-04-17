@@ -21,6 +21,7 @@ public class TableState {
     private int lastMovedPlayerNumber;
     private List<Card> deskCards;
     private CardDeck cardDeck;
+    private int pot;
 
     public int getLastMovedPlayerNumber() {
         return lastMovedPlayerNumber;
@@ -60,5 +61,13 @@ public class TableState {
 
     public void setDeskCards(List<Card> deskCards) {
         this.deskCards = deskCards;
+    }
+
+    public int getPot() {
+        return pot;
+    }
+
+    public void setPot(int pot) {
+        this.pot = pot;
     }
 }

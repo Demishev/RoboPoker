@@ -206,14 +206,18 @@ public class MainGamePlayProcessorTest {
 
     @Test
     public void shouldPlayerShouldNoMovesWhenFirstIsRiseOtherAreInCallWithSame200ChipsBets() throws Exception {
-        players.stream().forEach(p -> when(p.getBetValue()).thenReturn(200));
-
-        players.stream().filter(p -> p != firstPlayerMock).forEach(p -> when(p.getStatus()).thenReturn(CALL_PLAYER_ACTION));
-        when(firstPlayerMock.getStatus()).thenReturn(RISE_200_PLAYER_ACTION);
+        firstIsRiseOtherAreInCallWithSame200ChipsBets();
 
         processor.invoke(tableStateMock);
 
         players.stream().forEach(p -> verify(chipHandlerMock, never()).makeWantedMove(p, tableStateMock));
+    }
+
+    private void firstIsRiseOtherAreInCallWithSame200ChipsBets() {
+        players.stream().forEach(p -> when(p.getBetValue()).thenReturn(200));
+
+        players.stream().filter(p -> p != firstPlayerMock).forEach(p -> when(p.getStatus()).thenReturn(CALL_PLAYER_ACTION));
+        when(firstPlayerMock.getStatus()).thenReturn(RISE_200_PLAYER_ACTION);
     }
 
     @Test
@@ -223,6 +227,25 @@ public class MainGamePlayProcessorTest {
         processor.invoke(tableStateMock);
 
         verify(chipHandlerMock, never()).makeWantedMove(secondPlayerMock, tableStateMock);
+    }
+
+    @Test
+    public void shouldCollectAllTheMoneyToTablePotWhenFirstIsRiseOtherAreInCallWithSame200ChipsBets() throws Exception {
+        firstIsRiseOtherAreInCallWithSame200ChipsBets();
+
+        processor.invoke(tableStateMock);
+
+        verify(tableStateMock).setPot(800);
+    }
+
+    @Test
+    public void shouldCollectAllTheMoneyAndAddThemToPreviousPotToTablePotWhenFirstIsRiseOtherAreInCallWithSame200ChipsBetsAndPotWas200() throws Exception {
+        firstIsRiseOtherAreInCallWithSame200ChipsBets();
+        when(tableStateMock.getPot()).thenReturn(200);
+
+        processor.invoke(tableStateMock);
+
+        verify(tableStateMock).setPot(1000);
     }
 
     //TODO when all are in call and one in rise. All with equal money on pot. -> go to next round.
