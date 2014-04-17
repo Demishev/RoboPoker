@@ -56,7 +56,9 @@ public class MainGamePlayProcessor implements GamePlayProcessor {
     }
 
     private boolean isSkippedPlayerStatus(TableState tableState, int currentPlayerNumber) {
-        List<PlayerAction.Type> skippedStatuses = Arrays.asList(PlayerAction.Type.FOLD, PlayerAction.Type.ALL_IN);
+        List<PlayerAction.Type> skippedStatuses =
+                Arrays.asList(PlayerAction.Type.FOLD, PlayerAction.Type.ALL_IN, PlayerAction.Type.SIT_OUT);
+
         PlayerAction.Type playerStatus = tableState.getPlayers().get(currentPlayerNumber).getStatus().getType();
 
         return skippedStatuses.stream().filter(status -> status == playerStatus).count() != 0;

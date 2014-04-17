@@ -25,6 +25,7 @@ public class MainGamePlayProcessorTest {
     private final PlayerAction CHECK_PLAYER_ACTION = new PlayerAction(PlayerAction.Type.CHECK);
     private final PlayerAction ALL_IN_PLAYER_ACTION = new PlayerAction(PlayerAction.Type.ALL_IN);
     private final PlayerAction FOLD_PLAYER_ACTION = new PlayerAction(PlayerAction.Type.FOLD);
+    private final PlayerAction SIT_OUT_PLAYER_ACTION = new PlayerAction(PlayerAction.Type.SIT_OUT);
 
     private MainGamePlayProcessor processor;
 
@@ -192,7 +193,15 @@ public class MainGamePlayProcessorTest {
         verify(chipHandlerMock, never()).makeWantedMove(firstPlayerMock, tableStateMock);
     }
 
-    //TODO SIT_OUT is skipped game status.
+    @Test
+    public void shouldThirdPlayerMoveWhenDefaultAndSecondPlayerStatusIsSitOut() throws Exception {
+        when(secondPlayerMock.getStatus()).thenReturn(SIT_OUT_PLAYER_ACTION);
+
+        processor.invoke(tableStateMock);
+
+        verify(chipHandlerMock).makeWantedMove(thirdPlayerMock, tableStateMock);
+    }
+
     //TODO when all are in call and one in rise. All with equal money on pot. -> go to next round.
 
     //TODO preflop - flop.
