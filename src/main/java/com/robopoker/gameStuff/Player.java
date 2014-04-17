@@ -11,6 +11,8 @@ public class Player {
     private PlayerAction status;
     private List<Card> playerCards;
 
+    private int betValue;
+
     private PlayerAction wantedMove;
 
     public PlayerAction getWantedMove() {
@@ -31,5 +33,9 @@ public class Player {
 
     public void setPlayerCards(List<Card> playerCards) {
         this.playerCards = playerCards;
+    }
+
+    public int getBetValue() {
+        return betValue;
     }
 }

@@ -26,6 +26,8 @@ public class MainGamePlayProcessorTest {
     private final PlayerAction ALL_IN_PLAYER_ACTION = new PlayerAction(PlayerAction.Type.ALL_IN);
     private final PlayerAction FOLD_PLAYER_ACTION = new PlayerAction(PlayerAction.Type.FOLD);
     private final PlayerAction SIT_OUT_PLAYER_ACTION = new PlayerAction(PlayerAction.Type.SIT_OUT);
+    private final PlayerAction CALL_PLAYER_ACTION = new PlayerAction(PlayerAction.Type.CALL);
+    private final PlayerAction RISE_200_PLAYER_ACTION = new PlayerAction(PlayerAction.Type.RISE, 200);
 
     private MainGamePlayProcessor processor;
 
@@ -200,6 +202,18 @@ public class MainGamePlayProcessorTest {
         processor.invoke(tableStateMock);
 
         verify(chipHandlerMock).makeWantedMove(thirdPlayerMock, tableStateMock);
+    }
+
+    @Test
+    public void shouldPlayerShouldNoMovesWhenFirstIsRiseOtherAreInCallWithSame200ChipsBets() throws Exception {
+        players.stream().forEach(p -> when(p.getBetValue()).thenReturn(200));
+
+        players.stream().filter(p -> p != firstPlayerMock).forEach(p -> when(p.getStatus()).thenReturn(CALL_PLAYER_ACTION));
+        when(firstPlayerMock.getStatus()).thenReturn(RISE_200_PLAYER_ACTION);
+
+        processor.invoke(tableStateMock);
+
+        players.stream().forEach(p -> verify(chipHandlerMock, never()).makeWantedMove(p, tableStateMock));
     }
 
     //TODO when all are in call and one in rise. All with equal money on pot. -> go to next round.

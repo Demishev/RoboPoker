@@ -42,17 +42,30 @@ public class MainGamePlayProcessor implements GamePlayProcessor {
 
     private int findMoverNumber(TableState tableState) {
         final int lastMovedPlayerNumber = tableState.getLastMovedPlayerNumber();
-        final int playersQuantity = tableState.getPlayers().size();
+        final List<Player> players = tableState.getPlayers();
+        final int playersQuantity = players.size();
 
         int currentPlayerNumber = (lastMovedPlayerNumber == playersQuantity - 1) ? 0 : lastMovedPlayerNumber + 1;
 
-        while (lastMovedPlayerNumber != currentPlayerNumber && isSkippedPlayerStatus(tableState, currentPlayerNumber)) {
+        while (lastMovedPlayerNumber != currentPlayerNumber &&
+                (isSkippedPlayerStatus(tableState, currentPlayerNumber) ||
+                        !playerNeedsToMakeABet(players, currentPlayerNumber))) {
             currentPlayerNumber++;
             if (currentPlayerNumber == playersQuantity) {
                 currentPlayerNumber = 0;
             }
         }
         return lastMovedPlayerNumber != currentPlayerNumber ? currentPlayerNumber : -1;
+    }
+
+    private boolean playerNeedsToMakeABet(List<Player> players, int currentPlayerNumber) {
+        final int maxBet = findMaxBet(players);
+        return players.get(currentPlayerNumber).getBetValue() < maxBet ||
+                players.get(currentPlayerNumber).getStatus().getType() == PlayerAction.Type.READY;
+    }
+
+    private int findMaxBet(List<Player> players) {
+        return players.stream().max((o1, o2) -> o1.getBetValue() - o2.getBetValue()).get().getBetValue();
     }
 
     private boolean isSkippedPlayerStatus(TableState tableState, int currentPlayerNumber) {
