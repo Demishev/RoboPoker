@@ -14,6 +14,7 @@ public class Player {
     private int betValue;
 
     private PlayerAction wantedMove;
+    private int balance;
 
     public PlayerAction getWantedMove() {
         return wantedMove;
@@ -41,5 +42,13 @@ public class Player {
 
     public void setBetValue(int betValue) {
         this.betValue = betValue;
+    }
+
+    public int getBalance() {
+        return balance;
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
     }
 }

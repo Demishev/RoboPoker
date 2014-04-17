@@ -22,6 +22,7 @@ public class TableState {
     private List<Card> deskCards;
     private CardDeck cardDeck;
     private int pot;
+    private int smallBlindValue;
 
     public int getLastMovedPlayerNumber() {
         return lastMovedPlayerNumber;
@@ -69,5 +70,9 @@ public class TableState {
 
     public void setPot(int pot) {
         this.pot = pot;
+    }
+
+    public int getSmallBlindValue() {
+        return smallBlindValue;
     }
 }
