@@ -30,18 +30,22 @@ public class ChipHandler {
                 makeChipTransaction(player, PlayerAction.Type.ALL_IN, player.getBalance());
                 break;
             case BET:
-                final int minBet;
-                final GameStage gameStage = tableState.getGameStage();
-                if (gameStage == GameStage.PREFLOP || gameStage == GameStage.FLOP) {
-                    minBet = tableState.getSmallBlindValue() * 2;
-                } else {
-                    minBet = tableState.getSmallBlindValue() * 4;
-                }
-                final int bet = (player.getWantedMove().getValue() > minBet) ? player.getWantedMove().getValue() : minBet;
+                final int bet = defineBetValue(player, tableState);
 
                 makeChipTransaction(player, PlayerAction.Type.BET, bet);
                 break;
         }
+    }
+
+    private int defineBetValue(Player player, TableState tableState) {
+        final int minBet;
+        final GameStage gameStage = tableState.getGameStage();
+        if (gameStage == GameStage.PREFLOP || gameStage == GameStage.FLOP) {
+            minBet = tableState.getSmallBlindValue() * 2;
+        } else {
+            minBet = tableState.getSmallBlindValue() * 4;
+        }
+        return (player.getWantedMove().getValue() > minBet) ? player.getWantedMove().getValue() : minBet;
     }
 
     private void makeChipTransaction(Player player, PlayerAction.Type wantedStatus, int wantedBet) {
