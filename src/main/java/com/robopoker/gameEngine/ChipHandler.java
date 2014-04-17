@@ -11,10 +11,17 @@ import com.robopoker.gameStuff.PlayerAction;
 public class ChipHandler {
     public void makeSmallBlindTransaction(Player player, TableState tableState) {
         final int smallBlindValue = tableState.getSmallBlindValue();
-        player.setBetValue(smallBlindValue);
-        player.setBalance(player.getBalance() - smallBlindValue);
+        final int balance = player.getBalance();
 
-        player.setStatus(new PlayerAction(PlayerAction.Type.SMALL_BLIND, smallBlindValue));
+        if (balance > smallBlindValue) {
+            player.setStatus(new PlayerAction(PlayerAction.Type.SMALL_BLIND, smallBlindValue));
+            player.setBalance(balance - smallBlindValue);
+            player.setBetValue(smallBlindValue);
+        } else {
+            player.setStatus(new PlayerAction(PlayerAction.Type.ALL_IN, balance));
+            player.setBetValue(balance);
+            player.setBalance(0);
+        }
     }
 
     public void makeBigBlindTransaction(Player player, TableState tableState) {

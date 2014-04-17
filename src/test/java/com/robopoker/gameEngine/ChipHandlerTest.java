@@ -97,4 +97,84 @@ public class ChipHandlerTest {
 
         verify(firstPlayerMock).setStatus(new PlayerAction(PlayerAction.Type.SMALL_BLIND, 50));
     }
+
+    @Test
+    public void shouldAllInWhenPlayerBalanceIs10() throws Exception {
+        when(firstPlayerMock.getBalance()).thenReturn(10);
+
+        chipHandler.makeSmallBlindTransaction(firstPlayerMock, tableStateMock);
+
+        verify(firstPlayerMock).setStatus(new PlayerAction(PlayerAction.Type.ALL_IN, 10));
+    }
+
+    @Test
+    public void shouldNotPlayerStatusSmallBlind100WhenPlayerBalanceIs10() throws Exception {
+        when(firstPlayerMock.getBalance()).thenReturn(10);
+
+        chipHandler.makeSmallBlindTransaction(firstPlayerMock, tableStateMock);
+
+        verify(firstPlayerMock, never()).setStatus(new PlayerAction(PlayerAction.Type.SMALL_BLIND, 100));
+    }
+
+
+    @Test
+    public void shouldPlayerBalance0WhenPlayerBalanceIs10() throws Exception {
+        when(firstPlayerMock.getBalance()).thenReturn(10);
+
+        chipHandler.makeSmallBlindTransaction(firstPlayerMock, tableStateMock);
+
+        verify(firstPlayerMock).setBalance(0);
+    }
+
+    @Test
+    public void shouldNotPlayerBalanceMinus90WhenPlayerBalanceIs10() throws Exception {
+        when(firstPlayerMock.getBalance()).thenReturn(10);
+
+        chipHandler.makeSmallBlindTransaction(firstPlayerMock, tableStateMock);
+
+        verify(firstPlayerMock, never()).setBalance(-90);
+    }
+
+    @Test
+    public void shouldSetBetValue10WhenPlayerBalanceIs10() throws Exception {
+        when(firstPlayerMock.getBalance()).thenReturn(10);
+
+        chipHandler.makeSmallBlindTransaction(firstPlayerMock, tableStateMock);
+
+        verify(firstPlayerMock).setBetValue(10);
+    }
+
+    @Test
+    public void shouldSetBetValue20WhenPlayerBalanceIs20() throws Exception {
+        when(firstPlayerMock.getBalance()).thenReturn(20);
+
+        chipHandler.makeSmallBlindTransaction(firstPlayerMock, tableStateMock);
+
+        verify(firstPlayerMock).setBetValue(20);
+    }
+
+    @Test
+    public void shouldSetStatusAllIn20WhenPlayerBalanceIs20() throws Exception {
+        when(firstPlayerMock.getBalance()).thenReturn(20);
+
+        chipHandler.makeSmallBlindTransaction(firstPlayerMock, tableStateMock);
+
+        verify(firstPlayerMock).setStatus(new PlayerAction(PlayerAction.Type.ALL_IN, 20));
+    }
+
+    @Test
+    public void shouldNotSetBetValue100WhenPlayerBalanceIs20() throws Exception {
+        when(firstPlayerMock.getBalance()).thenReturn(20);
+
+        chipHandler.makeSmallBlindTransaction(firstPlayerMock, tableStateMock);
+
+        verify(firstPlayerMock, never()).setBetValue(100);
+    }
+
+    @Test
+    public void shouldNotSetBetValue1000WhenPlayerBalanceIs1000() throws Exception {
+        chipHandler.makeSmallBlindTransaction(firstPlayerMock, tableStateMock);
+
+        verify(firstPlayerMock, never()).setBetValue(1000);
+    }
 }
