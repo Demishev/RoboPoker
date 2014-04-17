@@ -41,10 +41,23 @@ public class MainGamePlayProcessor implements GamePlayProcessor {
             int moneyToPot = tableState.getPot();
             for (Player player : tableState.getPlayers()) {
                 moneyToPot += player.getBetValue();
+                player.setBetValue(0);
+                if (!isSkippedPlayerStatus(player)) {
+                    player.setStatus(new PlayerAction(PlayerAction.Type.READY));
+                }
             }
             tableState.setPot(moneyToPot);
+            GameStage currentGameStage = tableState.getGameStage();
+            tableState.setGameStage(getNextGameStage(currentGameStage));
         }
     }
+
+    private GameStage getNextGameStage(GameStage currentGameStage) {
+        List<GameStage> gameStages = Arrays.asList(GameStage.values());
+
+        return gameStages.get(gameStages.indexOf(currentGameStage) + 1);
+    }
+
 
     private int findMoverNumber(TableState tableState) {
         final List<Player> players = tableState.getPlayers();

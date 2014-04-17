@@ -248,17 +248,50 @@ public class MainGamePlayProcessorTest {
         verify(tableStateMock).setPot(1000);
     }
 
-    //TODO when all are in call and one in rise. All with equal money on pot. -> go to next round.
+    @Test
+    public void shouldSetPlayersBet0WhenGoToNextRound() throws Exception {
+        firstIsRiseOtherAreInCallWithSame200ChipsBets();
 
-    //TODO preflop - flop.
-    //TODO flop - turn.
-    //TODO turn - river.
-    //TODO river - showdown.
+        processor.invoke(tableStateMock);
 
-    //TODO When go to next round - need to update statuses.
-    //TODO When go to next round - need to add money to pot from players. (ChipHandler?)
-    //TODO When player has skipped status it needs to remain.
-    //TODO When status is not skipable - in needs to be changed on READY.
-    //TODO when all are in fold and one is not. -> go to final round.
+        players.stream().forEach(p -> verify(p).setBetValue(0));
+    }
 
+    @Test
+    public void shouldSetFirstPlayerStatusReadyWhenGoToNextRound() throws Exception {
+        firstIsRiseOtherAreInCallWithSame200ChipsBets();
+
+        processor.invoke(tableStateMock);
+
+        verify(firstPlayerMock).setStatus(READY_PLAYER_ACTION);
+    }
+
+    @Test
+    public void shouldNotSetSecondPlayerReadyStatusWhenGoToNextRoundBecauseHisStatusIfFold() throws Exception {
+        firstIsRiseOtherAreInCallWithSame200ChipsBets();
+        when(secondPlayerMock.getStatus()).thenReturn(FOLD_PLAYER_ACTION);
+
+        processor.invoke(tableStateMock);
+
+        verify(secondPlayerMock, never()).setStatus(READY_PLAYER_ACTION);
+    }
+
+    @Test
+    public void shouldSetGameStageFlopWhenGoToNextRoundFromPreflop() throws Exception {
+        firstIsRiseOtherAreInCallWithSame200ChipsBets();
+
+        processor.invoke(tableStateMock);
+
+        verify(tableStateMock).setGameStage(GameStage.FLOP);
+    }
+
+    @Test
+    public void shouldSetGameStageTurnWhenGoToNextRoundFromFlop() throws Exception {
+        firstIsRiseOtherAreInCallWithSame200ChipsBets();
+        when(tableStateMock.getGameStage()).thenReturn(GameStage.FLOP);
+
+        processor.invoke(tableStateMock);
+
+        verify(tableStateMock).setGameStage(GameStage.TURN);
+    }
 }

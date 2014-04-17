@@ -38,4 +38,8 @@ public class Player {
     public int getBetValue() {
         return betValue;
     }
+
+    public void setBetValue(int betValue) {
+        this.betValue = betValue;
+    }
 }
