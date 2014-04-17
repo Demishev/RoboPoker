@@ -41,14 +41,19 @@ public class MainGamePlayProcessor implements GamePlayProcessor {
     }
 
     private int findMoverNumber(TableState tableState) {
-        final int lastMovedPlayerNumber = tableState.getLastMovedPlayerNumber();
         final List<Player> players = tableState.getPlayers();
+
+        if (players.stream().filter(p -> !isSkippedPlayerStatus(p)).count() < 2) {
+            return -1;
+        }
+
+        final int lastMovedPlayerNumber = tableState.getLastMovedPlayerNumber();
         final int playersQuantity = players.size();
 
         int currentPlayerNumber = (lastMovedPlayerNumber == playersQuantity - 1) ? 0 : lastMovedPlayerNumber + 1;
 
         while (lastMovedPlayerNumber != currentPlayerNumber &&
-                (isSkippedPlayerStatus(tableState, currentPlayerNumber) ||
+                (isSkippedPlayerStatus(tableState.getPlayers().get(currentPlayerNumber)) ||
                         !playerNeedsToMakeABet(players, currentPlayerNumber))) {
             currentPlayerNumber++;
             if (currentPlayerNumber == playersQuantity) {
@@ -68,11 +73,11 @@ public class MainGamePlayProcessor implements GamePlayProcessor {
         return players.stream().max((o1, o2) -> o1.getBetValue() - o2.getBetValue()).get().getBetValue();
     }
 
-    private boolean isSkippedPlayerStatus(TableState tableState, int currentPlayerNumber) {
+    private boolean isSkippedPlayerStatus(Player player) {
         List<PlayerAction.Type> skippedStatuses =
                 Arrays.asList(PlayerAction.Type.FOLD, PlayerAction.Type.ALL_IN, PlayerAction.Type.SIT_OUT);
 
-        PlayerAction.Type playerStatus = tableState.getPlayers().get(currentPlayerNumber).getStatus().getType();
+        PlayerAction.Type playerStatus = player.getStatus().getType();
 
         return skippedStatuses.stream().filter(status -> status == playerStatus).count() != 0;
     }

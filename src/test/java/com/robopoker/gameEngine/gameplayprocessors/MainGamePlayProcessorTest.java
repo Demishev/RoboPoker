@@ -216,6 +216,15 @@ public class MainGamePlayProcessorTest {
         players.stream().forEach(p -> verify(chipHandlerMock, never()).makeWantedMove(p, tableStateMock));
     }
 
+    @Test
+    public void shouldNoSecondPlayerMoveWhenOtherPlayersAreInFold() throws Exception {
+        players.stream().filter(p -> p != secondPlayerMock).forEach(p -> when(p.getStatus()).thenReturn(FOLD_PLAYER_ACTION));
+
+        processor.invoke(tableStateMock);
+
+        verify(chipHandlerMock, never()).makeWantedMove(secondPlayerMock, tableStateMock);
+    }
+
     //TODO when all are in call and one in rise. All with equal money on pot. -> go to next round.
 
     //TODO preflop - flop.
