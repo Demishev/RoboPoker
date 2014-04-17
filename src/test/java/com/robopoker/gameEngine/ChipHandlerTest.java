@@ -1,5 +1,6 @@
 package com.robopoker.gameEngine;
 
+import com.robopoker.gameStuff.GameStage;
 import com.robopoker.gameStuff.Player;
 import com.robopoker.gameStuff.PlayerAction;
 import org.junit.Before;
@@ -219,5 +220,66 @@ public class ChipHandlerTest {
         chipHandler.makeWantedMove(firstPlayerMock, tableStateMock);
 
         verify(firstPlayerMock).setStatus(new PlayerAction(PlayerAction.Type.ALL_IN, 5_000));
+    }
+
+    @Test
+    public void shouldNoAllInTransactionWhenBet0() throws Exception {
+        when(firstPlayerMock.getWantedMove()).thenReturn(new PlayerAction(PlayerAction.Type.BET));
+
+        chipHandler.makeWantedMove(firstPlayerMock, tableStateMock);
+
+        verify(firstPlayerMock, never()).setStatus(new PlayerAction(PlayerAction.Type.ALL_IN, 1000));
+    }
+
+    @Test
+    public void shouldBetValue200WhenPreflopAndNoBetsFromOtherPlayers() throws Exception {
+        when(tableStateMock.getGameStage()).thenReturn(GameStage.PREFLOP);
+        when(firstPlayerMock.getWantedMove()).thenReturn(new PlayerAction(PlayerAction.Type.BET));
+
+        chipHandler.makeWantedMove(firstPlayerMock, tableStateMock);
+
+        verify(firstPlayerMock).setStatus(new PlayerAction(PlayerAction.Type.BET, 200));
+    }
+
+    @Test
+    public void shouldBetValue400WhenPreflopAndNoBetsFromOtherPlayersSmallBlindIs200() throws Exception {
+        when(tableStateMock.getGameStage()).thenReturn(GameStage.PREFLOP);
+        when(tableStateMock.getSmallBlindValue()).thenReturn(200);
+        when(firstPlayerMock.getWantedMove()).thenReturn(new PlayerAction(PlayerAction.Type.BET));
+
+        chipHandler.makeWantedMove(firstPlayerMock, tableStateMock);
+
+        verify(firstPlayerMock).setStatus(new PlayerAction(PlayerAction.Type.BET, 400));
+    }
+
+    @Test
+    public void shouldBetValue400WhenTurnAndNoBetsFromOtherPlayers() throws Exception {
+        when(tableStateMock.getGameStage()).thenReturn(GameStage.TURN);
+        when(firstPlayerMock.getWantedMove()).thenReturn(new PlayerAction(PlayerAction.Type.BET));
+
+        chipHandler.makeWantedMove(firstPlayerMock, tableStateMock);
+
+        verify(firstPlayerMock).setStatus(new PlayerAction(PlayerAction.Type.BET, 400));
+    }
+
+
+    @Test
+    public void shouldBetValue200WhenFlopAndNoBetsFromOtherPlayers() throws Exception {
+        when(tableStateMock.getGameStage()).thenReturn(GameStage.FLOP);
+        when(firstPlayerMock.getWantedMove()).thenReturn(new PlayerAction(PlayerAction.Type.BET));
+
+        chipHandler.makeWantedMove(firstPlayerMock, tableStateMock);
+
+        verify(firstPlayerMock).setStatus(new PlayerAction(PlayerAction.Type.BET, 200));
+    }
+
+    @Test
+    public void shouldBetValue500WhenFlopAndNoBetsFromOtherPlayers() throws Exception {
+        when(tableStateMock.getGameStage()).thenReturn(GameStage.FLOP);
+        when(firstPlayerMock.getWantedMove()).thenReturn(new PlayerAction(PlayerAction.Type.BET, 500));
+
+        chipHandler.makeWantedMove(firstPlayerMock, tableStateMock);
+
+        verify(firstPlayerMock).setStatus(new PlayerAction(PlayerAction.Type.BET, 500));
     }
 }

@@ -1,5 +1,6 @@
 package com.robopoker.gameEngine;
 
+import com.robopoker.gameStuff.GameStage;
 import com.robopoker.gameStuff.Player;
 import com.robopoker.gameStuff.PlayerAction;
 
@@ -24,7 +25,23 @@ public class ChipHandler {
     }
 
     public void makeWantedMove(Player player, TableState tableState) {
-        makeChipTransaction(player, PlayerAction.Type.ALL_IN, player.getBalance());
+        switch (player.getWantedMove().getType()) {
+            case ALL_IN:
+                makeChipTransaction(player, PlayerAction.Type.ALL_IN, player.getBalance());
+                break;
+            case BET:
+                final int minBet;
+                final GameStage gameStage = tableState.getGameStage();
+                if (gameStage == GameStage.PREFLOP || gameStage == GameStage.FLOP) {
+                    minBet = tableState.getSmallBlindValue() * 2;
+                } else {
+                    minBet = tableState.getSmallBlindValue() * 4;
+                }
+                final int bet = (player.getWantedMove().getValue() > minBet) ? player.getWantedMove().getValue() : minBet;
+
+                makeChipTransaction(player, PlayerAction.Type.BET, bet);
+                break;
+        }
     }
 
     private void makeChipTransaction(Player player, PlayerAction.Type wantedStatus, int wantedBet) {
