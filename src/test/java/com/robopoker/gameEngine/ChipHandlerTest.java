@@ -292,4 +292,9 @@ public class ChipHandlerTest {
 
         verify(firstPlayerMock).setStatus(new PlayerAction(PlayerAction.Type.BET, 500));
     }
+
+    //TODO Call value is max bet on table.
+    //TODO Rise min is min bet or call + 2 or 4 minBets.
+    //TODO Fold is fold only :)
+    //TODO Check is 0 when was no bets on table or fold otherwise.
 }
