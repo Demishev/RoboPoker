@@ -4,6 +4,8 @@ import com.robopoker.gameStuff.GameStage;
 import com.robopoker.gameStuff.Player;
 import com.robopoker.gameStuff.PlayerAction;
 
+import java.util.List;
+
 /**
  * User: Demishev
  * Date: 15.04.2014
@@ -45,7 +47,18 @@ public class ChipHandler {
         } else {
             minBet = tableState.getSmallBlindValue() * 4;
         }
-        return (player.getWantedMove().getValue() > minBet) ? player.getWantedMove().getValue() : minBet;
+        List<Player> players = tableState.getPlayers();
+        final int callValue = players.stream().max((o1, o2) -> o1.getBetValue() - o2.getBetValue()).get().getBetValue();
+
+        final int wantedValue = player.getWantedMove().getValue();
+
+        if (callValue >= minBet && callValue >= wantedValue) {
+            return callValue;
+        }
+        if (minBet >= callValue && minBet >= wantedValue) {
+            return minBet;
+        }
+        return wantedValue;
     }
 
     private void makeChipTransaction(Player player, PlayerAction.Type wantedStatus, int wantedBet) {

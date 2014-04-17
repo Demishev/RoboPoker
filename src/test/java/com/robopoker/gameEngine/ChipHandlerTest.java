@@ -282,4 +282,14 @@ public class ChipHandlerTest {
 
         verify(firstPlayerMock).setStatus(new PlayerAction(PlayerAction.Type.BET, 500));
     }
+
+    @Test
+    public void shouldBetBe500WhenThirdPlayerBetValueIs500() throws Exception {
+        when(thirdPlayerMock.getBetValue()).thenReturn(500);
+        when(firstPlayerMock.getWantedMove()).thenReturn(new PlayerAction(PlayerAction.Type.BET));
+
+        chipHandler.makeWantedMove(firstPlayerMock, tableStateMock);
+
+        verify(firstPlayerMock).setStatus(new PlayerAction(PlayerAction.Type.BET, 500));
+    }
 }
