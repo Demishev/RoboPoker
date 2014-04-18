@@ -17,6 +17,6 @@ public class ShowdownGameProcessor implements GamePlayProcessor {
 
     @Override
     public void invoke(TableState tableState) {
-
+        tableState.setGameStage(GameStage.INIT);
     }
 }
