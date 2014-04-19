@@ -88,7 +88,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>4.0.1.Final</version>
+            <version>4.3.5.Final</version>
         </dependency>
 
         <dependency>
@@ -129,6 +129,11 @@
         <groupId>org.codehaus.jackson</groupId>
         <artifactId>jackson-mapper-asl</artifactId>
         </dependency>
-        
+
+      <dependency>
+      	<groupId>org.ow2.asm</groupId>
+      	<artifactId>asm</artifactId>
+      	<version>5.0.1</version>
+      </dependency>
     </dependencies>
 </project>
