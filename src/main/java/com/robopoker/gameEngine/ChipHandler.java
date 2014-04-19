@@ -49,8 +49,11 @@ public class ChipHandler {
                 player.setStatus(FOLD);
                 break;
             case CALL:
-                if (player.getBalance() > findMaxBet(tableState.getPlayers())) {
-                    makeChipTransaction(player, PlayerAction.Type.CALL, findMaxBet(tableState.getPlayers()));
+                makeChipTransaction(player, PlayerAction.Type.CALL, findMaxBet(tableState.getPlayers()));
+                break;
+            case CHECK:
+                if (findMaxBet(tableState.getPlayers()) == 0) {
+                    player.setStatus(new PlayerAction(PlayerAction.Type.CHECK));
                 } else {
                     player.setStatus(FOLD);
                 }

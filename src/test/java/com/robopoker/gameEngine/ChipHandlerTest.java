@@ -21,6 +21,7 @@ public class ChipHandlerTest {
     public static final int DEFAULT_BALANCE = 1000;
     public static final PlayerAction FOLD_ACTION = new PlayerAction(PlayerAction.Type.FOLD);
     public static final PlayerAction CALL_ACTION = new PlayerAction(PlayerAction.Type.CALL);
+    public static final PlayerAction CHECK_ACTION = new PlayerAction(PlayerAction.Type.CHECK);
     TableState tableStateMock;
     Player firstPlayerMock;
     Player secondPlayerMock;
@@ -362,8 +363,25 @@ public class ChipHandlerTest {
 
         chipHandler.makeWantedMove(firstPlayerMock, tableStateMock);
 
-        verify(firstPlayerMock).setStatus(FOLD_ACTION);
+        verify(firstPlayerMock).setStatus(new PlayerAction(PlayerAction.Type.ALL_IN, 100));
     }
 
-    //TODO Check is 0 when was no bets on table or fold otherwise.
+    @Test
+    public void shouldPlayerStatusCheck0WhenNoBets() throws Exception {
+        when(firstPlayerMock.getWantedMove()).thenReturn(CHECK_ACTION);
+
+        chipHandler.makeWantedMove(firstPlayerMock, tableStateMock);
+
+        verify(firstPlayerMock).setStatus(CHECK_ACTION);
+    }
+
+    @Test
+    public void shouldPlayerStatusFoldWhenSecondBetValueIs1() throws Exception {
+        when(firstPlayerMock.getWantedMove()).thenReturn(CHECK_ACTION);
+        when(secondPlayerMock.getBetValue()).thenReturn(1);
+
+        chipHandler.makeWantedMove(firstPlayerMock, tableStateMock);
+
+        verify(firstPlayerMock).setStatus(FOLD_ACTION);
+    }
 }
