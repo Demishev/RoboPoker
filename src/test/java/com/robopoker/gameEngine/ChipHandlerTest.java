@@ -19,6 +19,7 @@ import static org.mockito.Mockito.*;
 public class ChipHandlerTest {
     public static final int DEFAULT_SMALL_BLIND_VALUE = 100;
     public static final int DEFAULT_BALANCE = 1000;
+    public static final PlayerAction FOLD_ACTION = new PlayerAction(PlayerAction.Type.FOLD);
     TableState tableStateMock;
     Player firstPlayerMock;
     Player secondPlayerMock;
@@ -323,6 +324,24 @@ public class ChipHandlerTest {
         verify(firstPlayerMock).setStatus(new PlayerAction(PlayerAction.Type.RISE, 500));
     }
 
-    //TODO Fold is fold only :)
+    @Test
+    public void shouldNoFoldWhenRise() throws Exception {
+        when(tableStateMock.getGameStage()).thenReturn(GameStage.TURN);
+        when(firstPlayerMock.getWantedMove()).thenReturn(new PlayerAction(PlayerAction.Type.RISE, 500));
+
+        chipHandler.makeWantedMove(firstPlayerMock, tableStateMock);
+
+        verify(firstPlayerMock, never()).setStatus(FOLD_ACTION);
+    }
+
+    @Test
+    public void shouldFoldWhenFold() throws Exception {
+        when(firstPlayerMock.getWantedMove()).thenReturn(FOLD_ACTION);
+
+        chipHandler.makeWantedMove(firstPlayerMock, tableStateMock);
+
+        verify(firstPlayerMock).setStatus(FOLD_ACTION);
+    }
+
     //TODO Check is 0 when was no bets on table or fold otherwise.
 }

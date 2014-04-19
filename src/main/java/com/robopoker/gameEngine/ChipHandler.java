@@ -41,6 +41,9 @@ public class ChipHandler {
                 final int wantedRiseValue = player.getWantedMove().getValue();
 
                 makeChipTransaction(player, PlayerAction.Type.RISE, Math.max(minimumRiseValue, wantedRiseValue));
+                break;
+            case FOLD:
+                player.setStatus(new PlayerAction(PlayerAction.Type.FOLD));
         }
     }
 
