@@ -36,17 +36,16 @@ public class ChipHandler {
 
                 makeChipTransaction(player, PlayerAction.Type.BET, bet);
                 break;
+            case RISE:
+                final int minimumRiseValue = findMaxBet(tableState.getPlayers()) + defineMinBet(tableState);
+                final int wantedRiseValue = player.getWantedMove().getValue();
+
+                makeChipTransaction(player, PlayerAction.Type.RISE, Math.max(minimumRiseValue, wantedRiseValue));
         }
     }
 
     private int defineBetValue(Player player, TableState tableState) {
-        final int minBet;
-        final GameStage gameStage = tableState.getGameStage();
-        if (gameStage == GameStage.PREFLOP || gameStage == GameStage.FLOP) {
-            minBet = tableState.getSmallBlindValue() * 2;
-        } else {
-            minBet = tableState.getSmallBlindValue() * 4;
-        }
+        final int minBet = defineMinBet(tableState);
         List<Player> players = tableState.getPlayers();
         final int callValue = findMaxBet(players);
 
@@ -59,6 +58,17 @@ public class ChipHandler {
             return minBet;
         }
         return wantedValue;
+    }
+
+    private int defineMinBet(TableState tableState) {
+        int minBet;
+        final GameStage gameStage = tableState.getGameStage();
+        if (gameStage == GameStage.PREFLOP || gameStage == GameStage.FLOP) {
+            minBet = tableState.getSmallBlindValue() * 2;
+        } else {
+            minBet = tableState.getSmallBlindValue() * 4;
+        }
+        return minBet;
     }
 
     public int findMaxBet(List<Player> players) {

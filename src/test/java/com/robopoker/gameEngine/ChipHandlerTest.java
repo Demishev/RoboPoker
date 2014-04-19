@@ -293,8 +293,36 @@ public class ChipHandlerTest {
         verify(firstPlayerMock).setStatus(new PlayerAction(PlayerAction.Type.BET, 500));
     }
 
-    //TODO Call value is max bet on table.
-    //TODO Rise min is min bet or call + 2 or 4 minBets.
+    @Test
+    public void shouldRise200WhenRiseOnPreflop() throws Exception {
+        when(tableStateMock.getGameStage()).thenReturn(GameStage.PREFLOP);
+        when(firstPlayerMock.getWantedMove()).thenReturn(new PlayerAction(PlayerAction.Type.RISE));
+
+        chipHandler.makeWantedMove(firstPlayerMock, tableStateMock);
+
+        verify(firstPlayerMock).setStatus(new PlayerAction(PlayerAction.Type.RISE, 200));
+    }
+
+    @Test
+    public void shouldRise400WhenRiseOnTurn() throws Exception {
+        when(tableStateMock.getGameStage()).thenReturn(GameStage.TURN);
+        when(firstPlayerMock.getWantedMove()).thenReturn(new PlayerAction(PlayerAction.Type.RISE));
+
+        chipHandler.makeWantedMove(firstPlayerMock, tableStateMock);
+
+        verify(firstPlayerMock).setStatus(new PlayerAction(PlayerAction.Type.RISE, 400));
+    }
+
+    @Test
+    public void shouldRise500WhenRise500OnTurn() throws Exception {
+        when(tableStateMock.getGameStage()).thenReturn(GameStage.TURN);
+        when(firstPlayerMock.getWantedMove()).thenReturn(new PlayerAction(PlayerAction.Type.RISE, 500));
+
+        chipHandler.makeWantedMove(firstPlayerMock, tableStateMock);
+
+        verify(firstPlayerMock).setStatus(new PlayerAction(PlayerAction.Type.RISE, 500));
+    }
+
     //TODO Fold is fold only :)
     //TODO Check is 0 when was no bets on table or fold otherwise.
 }
