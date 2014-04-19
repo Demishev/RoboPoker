@@ -20,6 +20,7 @@ public class ChipHandlerTest {
     public static final int DEFAULT_SMALL_BLIND_VALUE = 100;
     public static final int DEFAULT_BALANCE = 1000;
     public static final PlayerAction FOLD_ACTION = new PlayerAction(PlayerAction.Type.FOLD);
+    public static final PlayerAction CALL_ACTION = new PlayerAction(PlayerAction.Type.CALL);
     TableState tableStateMock;
     Player firstPlayerMock;
     Player secondPlayerMock;
@@ -337,6 +338,27 @@ public class ChipHandlerTest {
     @Test
     public void shouldFoldWhenFold() throws Exception {
         when(firstPlayerMock.getWantedMove()).thenReturn(FOLD_ACTION);
+
+        chipHandler.makeWantedMove(firstPlayerMock, tableStateMock);
+
+        verify(firstPlayerMock).setStatus(FOLD_ACTION);
+    }
+
+    @Test
+    public void shouldCall200WhenSecondPlayerBetValueIs2000CallMove() throws Exception {
+        when(firstPlayerMock.getWantedMove()).thenReturn(CALL_ACTION);
+        when(secondPlayerMock.getBetValue()).thenReturn(200);
+
+        chipHandler.makeWantedMove(firstPlayerMock, tableStateMock);
+
+        verify(firstPlayerMock).setStatus(new PlayerAction(PlayerAction.Type.CALL, 200));
+    }
+
+    @Test
+    public void shouldFoldWhenSecondPlayerBetValueIs2000CallMoveFirstPlayerBalanceIs100() throws Exception {
+        when(firstPlayerMock.getWantedMove()).thenReturn(CALL_ACTION);
+        when(secondPlayerMock.getBetValue()).thenReturn(200);
+        when(firstPlayerMock.getBalance()).thenReturn(100);
 
         chipHandler.makeWantedMove(firstPlayerMock, tableStateMock);
 

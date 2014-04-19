@@ -12,6 +12,9 @@ import java.util.List;
  * Time: 15:29
  */
 public class ChipHandler {
+
+    public static final PlayerAction FOLD = new PlayerAction(PlayerAction.Type.FOLD);
+
     public void makeSmallBlindTransaction(Player player, TableState tableState) {
         final int wantedBet = tableState.getSmallBlindValue();
         final PlayerAction.Type wantedStatus = PlayerAction.Type.SMALL_BLIND;
@@ -43,7 +46,14 @@ public class ChipHandler {
                 makeChipTransaction(player, PlayerAction.Type.RISE, Math.max(minimumRiseValue, wantedRiseValue));
                 break;
             case FOLD:
-                player.setStatus(new PlayerAction(PlayerAction.Type.FOLD));
+                player.setStatus(FOLD);
+                break;
+            case CALL:
+                if (player.getBalance() > findMaxBet(tableState.getPlayers())) {
+                    makeChipTransaction(player, PlayerAction.Type.CALL, findMaxBet(tableState.getPlayers()));
+                } else {
+                    player.setStatus(FOLD);
+                }
         }
     }
 
