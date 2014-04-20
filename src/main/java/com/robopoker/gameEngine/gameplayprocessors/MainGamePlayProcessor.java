@@ -15,6 +15,7 @@ import java.util.List;
  * Time: 18:25
  */
 public class MainGamePlayProcessor implements GamePlayProcessor {
+    public static final PlayerAction READY_ACTION = new PlayerAction(PlayerAction.Type.READY);
     private final ChipHandler chipHandler;
 
     public MainGamePlayProcessor(ChipHandler chipHandler) {
@@ -38,26 +39,13 @@ public class MainGamePlayProcessor implements GamePlayProcessor {
             mover.setWantedMove(null);
             tableState.setLastMovedPlayerNumber(moverNumber);
         } else {
-            int moneyToPot = tableState.getPot();
-            for (Player player : tableState.getPlayers()) {
-                moneyToPot += player.getBetValue();
-                player.setBetValue(0);
-                if (!isSkippedPlayerStatus(player)) {
-                    player.setStatus(new PlayerAction(PlayerAction.Type.READY));
-                }
-            }
-            tableState.setPot(moneyToPot);
-            GameStage currentGameStage = tableState.getGameStage();
-            tableState.setGameStage(getNextGameStage(currentGameStage));
+            tableState.getPlayers().stream().filter(p -> !isSkippedPlayerStatus(p))
+                    .forEach(p -> p.setStatus(READY_ACTION));
+
+            tableState.setGameStage(tableState.getGameStage().nextGameStage());
+            chipHandler.moveChipsFromPlayersToPot(tableState);
         }
     }
-
-    private GameStage getNextGameStage(GameStage currentGameStage) {
-        List<GameStage> gameStages = Arrays.asList(GameStage.values());
-
-        return gameStages.get(gameStages.indexOf(currentGameStage) + 1);
-    }
-
 
     private int findMoverNumber(TableState tableState) {
         final List<Player> players = tableState.getPlayers();
