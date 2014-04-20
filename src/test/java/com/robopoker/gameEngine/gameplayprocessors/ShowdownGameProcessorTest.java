@@ -69,8 +69,7 @@ public class ShowdownGameProcessorTest {
     }
 
     @Test
-    public void shouldNameWhen() throws Exception {
-
+    public void shouldGameStageInitWhenProcessorIsInvokes() throws Exception {
         processor.invoke(tableStateMock);
 
         verify(tableStateMock).setGameStage(GameStage.INIT);

@@ -36,7 +36,7 @@ public class TableEngine {
             GameCommand gameCommand = gameCommands.get(0);
             gameCommandProcessorList.stream()
                     .filter(processor -> processor.isAppropriate(gameCommand))
-                    .forEach(processor -> processor.invoke(tableState, gameCommand, messageEngine));
+                    .forEach(processor -> processor.invoke(tableState, gameCommand));
             gameCommands.remove(gameCommand);
         }
     }
