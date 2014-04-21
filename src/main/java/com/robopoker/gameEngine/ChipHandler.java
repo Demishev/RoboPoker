@@ -116,7 +116,7 @@ public class ChipHandler {
         tableState.setPot(moneyToPot.intValue());
     }
 
-    public void giveChipsToPlayer(Player player) {
-        //TODO code it
+    public void giveChipsToPlayer(Player player, TableState tableState) {
+        player.setBalance(player.getBalance() + tableState.getPot());
     }
 }

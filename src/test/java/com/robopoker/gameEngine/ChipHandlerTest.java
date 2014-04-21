@@ -422,4 +422,32 @@ public class ChipHandlerTest {
 
         verify(tableStateMock).setPot(500);
     }
+
+    @Test
+    public void shouldGive1100ChipsToFirstPlayerWhenPotIs100PlayerBalance1000() throws Exception {
+        when(tableStateMock.getPot()).thenReturn(100);
+
+        chipHandler.giveChipsToPlayer(firstPlayerMock, tableStateMock);
+
+        verify(firstPlayerMock).setBalance(1100);
+    }
+
+    @Test
+    public void shouldGive1200ChipsToFirstPlayerWhenPotIs200PlayerBalance1000() throws Exception {
+        when(tableStateMock.getPot()).thenReturn(200);
+
+        chipHandler.giveChipsToPlayer(firstPlayerMock, tableStateMock);
+
+        verify(firstPlayerMock).setBalance(1200);
+    }
+
+    @Test
+    public void shouldGive200ChipsToFirstPlayerWhenPotIs200PlayerBalance0() throws Exception {
+        when(tableStateMock.getPot()).thenReturn(200);
+        when(firstPlayerMock.getBalance()).thenReturn(0);
+
+        chipHandler.giveChipsToPlayer(firstPlayerMock, tableStateMock);
+
+        verify(firstPlayerMock).setBalance(200);
+    }
 }

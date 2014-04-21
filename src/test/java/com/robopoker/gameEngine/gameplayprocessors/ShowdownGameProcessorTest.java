@@ -89,7 +89,7 @@ public class ShowdownGameProcessorTest {
 
         processor.invoke(tableStateMock);
 
-        verify(chipHandlerMock).giveChipsToPlayer(firstPlayerMock);
+        verify(chipHandlerMock).giveChipsToPlayer(firstPlayerMock, tableStateMock);
     }
 
     @Test
@@ -98,7 +98,7 @@ public class ShowdownGameProcessorTest {
 
         processor.invoke(tableStateMock);
 
-        verify(chipHandlerMock).giveChipsToPlayer(secondPlayerMock);
+        verify(chipHandlerMock).giveChipsToPlayer(secondPlayerMock, tableStateMock);
     }
 
     @Test
@@ -107,7 +107,7 @@ public class ShowdownGameProcessorTest {
 
         processor.invoke(tableStateMock);
 
-        verify(chipHandlerMock, never()).giveChipsToPlayer(firstPlayerMock);
+        verify(chipHandlerMock, never()).giveChipsToPlayer(firstPlayerMock, tableStateMock);
     }
 
     @Test
@@ -116,7 +116,7 @@ public class ShowdownGameProcessorTest {
 
         processor.invoke(tableStateMock);
 
-        verify(chipHandlerMock).giveChipsToPlayer(firstPlayerMock);
+        verify(chipHandlerMock).giveChipsToPlayer(firstPlayerMock, tableStateMock);
     }
 
     @Test
@@ -125,7 +125,7 @@ public class ShowdownGameProcessorTest {
 
         processor.invoke(tableStateMock);
 
-        verify(chipHandlerMock, never()).giveChipsToPlayer(firstPlayerMock);
+        verify(chipHandlerMock, never()).giveChipsToPlayer(firstPlayerMock, tableStateMock);
     }
 
     //TODO when there are more than one active player - need to find player with best cards.

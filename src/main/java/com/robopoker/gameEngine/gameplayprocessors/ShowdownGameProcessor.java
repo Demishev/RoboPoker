@@ -27,7 +27,7 @@ public class ShowdownGameProcessor implements GamePlayProcessor {
 
     @Override
     public void invoke(TableState tableState) {
-        tableState.getPlayers().stream().filter(this::isNotLooserStatus).forEach(chipHandler::giveChipsToPlayer);
+        tableState.getPlayers().stream().filter(this::isNotLooserStatus).forEach(p -> chipHandler.giveChipsToPlayer(p, tableState));
 
         tableState.setGameStage(GameStage.INIT);
     }
