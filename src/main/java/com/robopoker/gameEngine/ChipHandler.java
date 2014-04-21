@@ -3,6 +3,7 @@ package com.robopoker.gameEngine;
 import com.robopoker.gameStuff.GameStage;
 import com.robopoker.gameStuff.Player;
 import com.robopoker.gameStuff.PlayerAction;
+import org.apache.commons.lang3.mutable.MutableInt;
 
 import java.util.List;
 
@@ -102,5 +103,16 @@ public class ChipHandler {
             player.setBetValue(balance);
             player.setBalance(0);
         }
+    }
+
+    public void moveChipsFromPlayersToPot(TableState tableState) {
+        final MutableInt moneyToPot = new MutableInt(tableState.getPot());
+
+        tableState.getPlayers().stream().forEach(p -> {
+            moneyToPot.add(p.getBetValue());
+            p.setBetValue(0);
+        });
+
+        tableState.setPot(moneyToPot.intValue());
     }
 }

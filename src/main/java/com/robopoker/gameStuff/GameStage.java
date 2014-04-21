@@ -6,5 +6,11 @@ package com.robopoker.gameStuff;
  * Time: 12:36
  */
 public enum GameStage {
-    INIT, PREFLOP, FLOP, TURN, RIVER, SHOWDOWN
+    INIT, PREFLOP, FLOP, TURN, RIVER, SHOWDOWN;
+
+    public GameStage nextGameStage() {
+        final int ordinal = this.ordinal();
+
+        return GameStage.values()[ordinal + 1];
+    }
 }

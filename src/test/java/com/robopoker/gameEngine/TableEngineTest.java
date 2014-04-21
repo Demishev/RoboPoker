@@ -89,8 +89,8 @@ public class TableEngineTest {
 
         tableEngine.update();
 
-        verify(firstGameCommandProcessorMock).invoke(tableStateMock, gameCommandMock, messageEngineMock);
-        verify(secondGameCommandProcessorMock, never()).invoke(tableStateMock, gameCommandMock, messageEngineMock);
+        verify(firstGameCommandProcessorMock).invoke(tableStateMock, gameCommandMock);
+        verify(secondGameCommandProcessorMock, never()).invoke(tableStateMock, gameCommandMock);
     }
 
     @Test
@@ -99,8 +99,8 @@ public class TableEngineTest {
 
         tableEngine.update();
 
-        verify(firstGameCommandProcessorMock, never()).invoke(tableStateMock, gameCommandMock, messageEngineMock);
-        verify(secondGameCommandProcessorMock, never()).invoke(tableStateMock, gameCommandMock, messageEngineMock);
+        verify(firstGameCommandProcessorMock, never()).invoke(tableStateMock, gameCommandMock);
+        verify(secondGameCommandProcessorMock, never()).invoke(tableStateMock, gameCommandMock);
     }
 
     @Test

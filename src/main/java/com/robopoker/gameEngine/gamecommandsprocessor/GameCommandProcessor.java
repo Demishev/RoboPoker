@@ -2,7 +2,6 @@ package com.robopoker.gameEngine.gamecommandsprocessor;
 
 import com.robopoker.gameEngine.TableState;
 import com.robopoker.gameEngine.gamecommand.GameCommand;
-import com.robopoker.messaging.MessageEngine;
 
 /**
  * User: Demishev
@@ -12,5 +11,5 @@ import com.robopoker.messaging.MessageEngine;
 public interface GameCommandProcessor {
     boolean isAppropriate(GameCommand gameCommand);
 
-    void invoke(TableState tableState, GameCommand gameCommand, MessageEngine messageEngine);
+    void invoke(TableState tableState, GameCommand gameCommand);
 }

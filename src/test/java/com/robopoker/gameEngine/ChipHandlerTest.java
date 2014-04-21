@@ -384,4 +384,42 @@ public class ChipHandlerTest {
 
         verify(firstPlayerMock).setStatus(FOLD_ACTION);
     }
+
+    @Test
+    public void shouldSet200ChipsToDeskWhenFirstPlayerHas100ChipsAndSecondHas100Chips() throws Exception {
+        when(firstPlayerMock.getBetValue()).thenReturn(100);
+        when(secondPlayerMock.getBetValue()).thenReturn(100);
+
+        chipHandler.moveChipsFromPlayersToPot(tableStateMock);
+
+        verify(tableStateMock).setPot(200);
+    }
+
+    @Test
+    public void shouldSet300ChipsToDeskWhenAllPlayersHas100ChipsAndSecondHas100Chips() throws Exception {
+        players.stream().forEach(p -> when(p.getBetValue()).thenReturn(100));
+
+        chipHandler.moveChipsFromPlayersToPot(tableStateMock);
+
+        verify(tableStateMock).setPot(300);
+    }
+
+    @Test
+    public void shouldAllPlayersSetBet0WhenAllPlayersHas100ChipsAndSecondHas100Chips() throws Exception {
+        players.stream().forEach(p -> when(p.getBetValue()).thenReturn(100));
+
+        chipHandler.moveChipsFromPlayersToPot(tableStateMock);
+
+        players.stream().forEach(p -> verify(p).setBetValue(0));
+    }
+
+    @Test
+    public void shouldSet500ChipsToDeskWhenAllPlayersHas100ChipsAndSecondHas100ChipsDeskPotWas200() throws Exception {
+        players.stream().forEach(p -> when(p.getBetValue()).thenReturn(100));
+        when(tableStateMock.getPot()).thenReturn(200);
+
+        chipHandler.moveChipsFromPlayersToPot(tableStateMock);
+
+        verify(tableStateMock).setPot(500);
+    }
 }

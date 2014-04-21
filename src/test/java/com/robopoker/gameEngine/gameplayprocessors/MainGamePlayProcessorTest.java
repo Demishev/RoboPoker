@@ -230,34 +230,6 @@ public class MainGamePlayProcessorTest {
     }
 
     @Test
-    public void shouldCollectAllTheMoneyToTablePotWhenFirstIsRiseOtherAreInCallWithSame200ChipsBets() throws Exception {
-        firstIsRiseOtherAreInCallWithSame200ChipsBets();
-
-        processor.invoke(tableStateMock);
-
-        verify(tableStateMock).setPot(800);
-    }
-
-    @Test
-    public void shouldCollectAllTheMoneyAndAddThemToPreviousPotToTablePotWhenFirstIsRiseOtherAreInCallWithSame200ChipsBetsAndPotWas200() throws Exception {
-        firstIsRiseOtherAreInCallWithSame200ChipsBets();
-        when(tableStateMock.getPot()).thenReturn(200);
-
-        processor.invoke(tableStateMock);
-
-        verify(tableStateMock).setPot(1000);
-    }
-
-    @Test
-    public void shouldSetPlayersBet0WhenGoToNextRound() throws Exception {
-        firstIsRiseOtherAreInCallWithSame200ChipsBets();
-
-        processor.invoke(tableStateMock);
-
-        players.stream().forEach(p -> verify(p).setBetValue(0));
-    }
-
-    @Test
     public void shouldSetFirstPlayerStatusReadyWhenGoToNextRound() throws Exception {
         firstIsRiseOtherAreInCallWithSame200ChipsBets();
 
@@ -293,5 +265,23 @@ public class MainGamePlayProcessorTest {
         processor.invoke(tableStateMock);
 
         verify(tableStateMock).setGameStage(GameStage.TURN);
+    }
+
+    @Test
+    public void shouldChipHandlerMoveMoneyFromPlayersToPotWhenGoToNextRound() throws Exception {
+        firstIsRiseOtherAreInCallWithSame200ChipsBets();
+
+        processor.invoke(tableStateMock);
+
+        verify(chipHandlerMock).moveChipsFromPlayersToPot(tableStateMock);
+    }
+
+    @Test
+    public void shouldNoMoveChipsToDeskPotWhenDefaultAndSecondPlayerStatusIsSitOut() throws Exception {
+        when(secondPlayerMock.getStatus()).thenReturn(SIT_OUT_PLAYER_ACTION);
+
+        processor.invoke(tableStateMock);
+
+        verify(chipHandlerMock, never()).moveChipsFromPlayersToPot(tableStateMock);
     }
 }
