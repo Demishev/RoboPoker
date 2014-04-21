@@ -1,5 +1,6 @@
 package com.robopoker.gameEngine.gameplayprocessors;
 
+import com.robopoker.gameEngine.ChipHandler;
 import com.robopoker.gameEngine.TableState;
 import com.robopoker.gameStuff.GameStage;
 import com.robopoker.gameStuff.Player;
@@ -20,8 +21,12 @@ import static org.mockito.Mockito.*;
  * Time: 17:28
  */
 public class ShowdownGameProcessorTest {
+    public static final PlayerAction FOLD_ACTION = new PlayerAction(PlayerAction.Type.FOLD);
+    public static final PlayerAction SIT_OUT_ACTION = new PlayerAction(PlayerAction.Type.SIT_OUT);
     TableState tableStateMock;
     private ShowdownGameProcessor processor;
+
+    private ChipHandler chipHandlerMock;
 
     private Player firstPlayerMock;
     private Player secondPlayerMock;
@@ -30,12 +35,15 @@ public class ShowdownGameProcessorTest {
 
     @Before
     public void setUp() throws Exception {
-        processor = new ShowdownGameProcessor();
 
         tableStateMock = mock(TableState.class);
+        chipHandlerMock = mock(ChipHandler.class);
 
         resetPlayers();
         when(tableStateMock.getGameStage()).thenReturn(GameStage.SHOWDOWN);
+
+
+        processor = new ShowdownGameProcessor(chipHandlerMock);
     }
 
     private void resetPlayers() {
@@ -75,8 +83,51 @@ public class ShowdownGameProcessorTest {
         verify(tableStateMock).setGameStage(GameStage.INIT);
     }
 
-    //TODO when there are one no fold player - he is a winner
-    //TODO need to collect all players chips and give them to player
+    @Test
+    public void shouldChipHandlerRewardFirstPlayerWhenAllOthersAreInFold() throws Exception {
+        players.stream().filter(p -> p != firstPlayerMock).forEach(p -> when(p.getStatus()).thenReturn(FOLD_ACTION));
+
+        processor.invoke(tableStateMock);
+
+        verify(chipHandlerMock).giveChipsToPlayer(firstPlayerMock);
+    }
+
+    @Test
+    public void shouldChipHandlerRewardSecondPlayerWhenAllOthersAreInFold() throws Exception {
+        players.stream().filter(p -> p != secondPlayerMock).forEach(p -> when(p.getStatus()).thenReturn(FOLD_ACTION));
+
+        processor.invoke(tableStateMock);
+
+        verify(chipHandlerMock).giveChipsToPlayer(secondPlayerMock);
+    }
+
+    @Test
+    public void shouldNotChipHandlerRewardFirstPlayerWhenAllButFirstAreInFold() throws Exception {
+        players.stream().filter(p -> p != secondPlayerMock).forEach(p -> when(p.getStatus()).thenReturn(FOLD_ACTION));
+
+        processor.invoke(tableStateMock);
+
+        verify(chipHandlerMock, never()).giveChipsToPlayer(firstPlayerMock);
+    }
+
+    @Test
+    public void shouldChipHandlerRewardFirstPlayerWhenAllOthersAreInSitOut() throws Exception {
+        players.stream().filter(p -> p != firstPlayerMock).forEach(p -> when(p.getStatus()).thenReturn(SIT_OUT_ACTION));
+
+        processor.invoke(tableStateMock);
+
+        verify(chipHandlerMock).giveChipsToPlayer(firstPlayerMock);
+    }
+
+    @Test
+    public void shouldNotChipHandlerRewardFirstPlayerWhenAllButFirstAreInSitOut() throws Exception {
+        players.stream().filter(p -> p != secondPlayerMock).forEach(p -> when(p.getStatus()).thenReturn(SIT_OUT_ACTION));
+
+        processor.invoke(tableStateMock);
+
+        verify(chipHandlerMock, never()).giveChipsToPlayer(firstPlayerMock);
+    }
+
     //TODO when there are more than one active player - need to find player with best cards.
     //TODO need to think about reward transfer if there are more than one winner.
 

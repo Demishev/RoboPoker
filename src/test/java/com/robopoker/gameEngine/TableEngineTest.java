@@ -22,15 +22,12 @@ import static org.mockito.Mockito.*;
 public class TableEngineTest {
     private TableState tableStateMock;
 
-    private MessageEngine messageEngineMock;
-
     private GameCommand gameCommandMock;
     private GameCommandProcessor firstGameCommandProcessorMock;
     private GameCommandProcessor secondGameCommandProcessorMock;
 
     private GamePlayProcessor firstGamePlayProcessorMock;
     private GamePlayProcessor secondGamePlayProcessorMock;
-
 
     private TableEngine tableEngine;
 
@@ -52,9 +49,7 @@ public class TableEngineTest {
         List<GamePlayProcessor> gamePlayProcessorList = Arrays.asList
                 (firstGamePlayProcessorMock, secondGamePlayProcessorMock);
 
-        messageEngineMock = mock(MessageEngine.class);
-
-        tableEngine = new TableEngine(tableStateMock, gameCommandProcessorList, gamePlayProcessorList, messageEngineMock);
+        tableEngine = new TableEngine(tableStateMock, gameCommandProcessorList, gamePlayProcessorList, mock(MessageEngine.class));
     }
 
     @Test
