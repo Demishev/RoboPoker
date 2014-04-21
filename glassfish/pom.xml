@@ -11,9 +11,13 @@
     <packaging>pom</packaging>
     
      <properties>
+     	<casino.groupId>casino</casino.groupId>
+     	<casino.artifactId>roboPoker</casino.artifactId>
+     	<casino.version>1.0-SNAPSHOT</casino.version>
+     	<casino.type>war</casino.type>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <glassfish.directory>C:\Users\Dmitriy.Vilyuzhanin\Projects\Java\Servers\Glassfish\glassfish4\glassfish</glassfish.directory>
-    	<glassfish.deployment>../target/roboPoker-1.0-SNAPSHOT.war</glassfish.deployment>
+    	<glassfish.deployment>../target/${casino.artifactId}-${casino.version}.${casino.type}</glassfish.deployment>
     </properties>
 
     <modules>
@@ -23,18 +27,31 @@
     <build>
     	<plugins>
     	<plugin>
-                                <groupId>org.apache.maven.plugins</groupId>
-                                <artifactId>maven-dependency-plugin</artifactId>
-                                <version>2.3</version>
-                                <executions>
-                                        <execution>
-                                        		<phase>package</phase>
-                                                <goals>
-                                                        <goal>properties</goal>
-                                                </goals>
-                                        </execution>
-                                </executions>
-                        </plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-dependency-plugin</artifactId>
+               <version>2.3</version>
+               <executions>
+                <execution>
+                	<phase>package</phase>
+                    <goals>
+                       <goal>copy</goal>
+                    </goals>
+                    <configuration>
+                   <artifactItems>
+	                   	<artifactItem>                   								
+					    		<groupId>${casino.groupId}</groupId>
+	   							<artifactId>${casino.artifactId}</artifactId>
+	    						<version>${casino.version}</version>
+	    						<type>${casino.type}</type>
+								<overWrite>true</overWrite>
+								<outputDirectory>${project.build.directory}</outputDirectory>	
+	                   	</artifactItem>
+                   </artifactItems>
+
+                    </configuration>
+                 </execution>
+                </executions>
+                </plugin>
     		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
   			<artifactId>maven-failsafe-plugin</artifactId>
