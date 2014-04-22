@@ -179,6 +179,11 @@ public class ShowdownGameProcessorTest {
 
         when(secondPlayerCardCombinationMock.compareTo(thirdPlayerCardCombinationMock)).thenReturn(1);
         when(thirdPlayerCardCombinationMock.compareTo(secondPlayerCardCombinationMock)).thenReturn(-1);
+
+
+        when(firstPlayerCardCombinationMock.combinationValue()).thenReturn(100);
+        when(secondPlayerCardCombinationMock.combinationValue()).thenReturn(50);
+        when(thirdPlayerCardCombinationMock.combinationValue()).thenReturn(0);
     }
 
 
@@ -209,6 +214,40 @@ public class ShowdownGameProcessorTest {
         processor.invoke(tableStateMock);
 
         verify(chipHandlerMock, never()).giveChipsToPlayer(firstPlayerMock, tableStateMock);
+    }
+
+    @Test
+    public void shouldSplitRewardBetweenFirstAndSecondPlayerWhenTheyAreBest() throws Exception {
+        setFirstAndSecondPlayerCardCombinationBest();
+
+        processor.invoke(tableStateMock);
+
+        verify(chipHandlerMock).splitChipsBetweenPlayers(tableStateMock, firstPlayerMock, secondPlayerMock);
+    }
+
+
+    @Test
+    public void shouldNoGiveChipsToAnyPlayerWhenTheyAreBest() throws Exception {
+        setFirstAndSecondPlayerCardCombinationBest();
+
+        processor.invoke(tableStateMock);
+
+        players.stream().forEach(p -> verify(chipHandlerMock, never()).giveChipsToPlayer(p, tableStateMock));
+    }
+
+    private void setFirstAndSecondPlayerCardCombinationBest() {
+        when(firstPlayerCardCombinationMock.compareTo(secondPlayerCardCombinationMock)).thenReturn(0);
+        when(secondPlayerCardCombinationMock.compareTo(firstPlayerCardCombinationMock)).thenReturn(0);
+
+        when(firstPlayerCardCombinationMock.compareTo(thirdPlayerCardCombinationMock)).thenReturn(10);
+        when(thirdPlayerCardCombinationMock.compareTo(firstPlayerCardCombinationMock)).thenReturn(-10);
+
+        when(secondPlayerCardCombinationMock.compareTo(thirdPlayerCardCombinationMock)).thenReturn(10);
+        when(thirdPlayerCardCombinationMock.compareTo(secondPlayerCardCombinationMock)).thenReturn(-10);
+
+        when(firstPlayerCardCombinationMock.combinationValue()).thenReturn(100);
+        when(secondPlayerCardCombinationMock.combinationValue()).thenReturn(100);
+        when(thirdPlayerCardCombinationMock.combinationValue()).thenReturn(0);
     }
 
     //TODO need to think about reward transfer if there are more than one winner.

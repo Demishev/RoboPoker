@@ -11,4 +11,8 @@ public class CardCombination implements Comparable {
     public int compareTo(Object o) {
         return 0;
     }
+
+    public int combinationValue() {
+        return 0;
+    }
 }

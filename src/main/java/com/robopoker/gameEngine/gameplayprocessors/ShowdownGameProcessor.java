@@ -8,6 +8,7 @@ import com.robopoker.gameStuff.GameStage;
 import com.robopoker.gameStuff.Player;
 import com.robopoker.gameStuff.PlayerAction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,11 +20,11 @@ public class ShowdownGameProcessor implements GamePlayProcessor {
     public static final PlayerAction FOLD = new PlayerAction(PlayerAction.Type.FOLD);
     public static final PlayerAction SIT_OUT = new PlayerAction(PlayerAction.Type.SIT_OUT);
     private final ChipHandler chipHandler;
-    private final CardCombinationFactory cardCombinationFactory;
+    private final CardCombinationFactory combinationFactory;
 
-    public ShowdownGameProcessor(ChipHandler chipHandler, CardCombinationFactory cardCombinationFactory) {
+    public ShowdownGameProcessor(ChipHandler chipHandler, CardCombinationFactory combinationFactory) {
         this.chipHandler = chipHandler;
-        this.cardCombinationFactory = cardCombinationFactory;
+        this.combinationFactory = combinationFactory;
     }
 
     @Override
@@ -35,10 +36,30 @@ public class ShowdownGameProcessor implements GamePlayProcessor {
     public void invoke(TableState tableState) {
         final List<Card> descCards = tableState.getDeskCards();
 
-        chipHandler.giveChipsToPlayer(tableState.getPlayers().stream().filter(this::isNotLooserStatus)
-                .max((o1, o2) -> cardCombinationFactory.generateCardCombination(o1.getPlayerCards(), descCards)
-                        .compareTo(cardCombinationFactory.generateCardCombination(o2.getPlayerCards(), descCards)))
-                .get(), tableState);
+        final List<Player> activePlayers = new ArrayList<>();
+
+        tableState.getPlayers().stream().filter(this::isNotLooserStatus)
+                .forEach(activePlayers::add);
+
+        final int maxScore = combinationFactory.generateCardCombination(activePlayers.stream().max((o1, o2) -> {
+            return combinationFactory.generateCardCombination(o1.getPlayerCards(), descCards).combinationValue() -
+                    combinationFactory.generateCardCombination(o2.getPlayerCards(), descCards).combinationValue();
+        }).get().getPlayerCards(), descCards).combinationValue();
+
+        final List<Player> winners = new ArrayList<>();
+
+        activePlayers.stream().forEach(p -> {
+            int playerScore = combinationFactory.generateCardCombination(p.getPlayerCards(), descCards).combinationValue();
+            if (playerScore == maxScore) {
+                winners.add(p);
+            }
+        });
+
+        if (winners.size() == 1) {
+            chipHandler.giveChipsToPlayer(winners.get(0), tableState);
+        } else {
+            chipHandler.splitChipsBetweenPlayers(tableState, winners.toArray(new Player[winners.size()]));
+        }
 
         tableState.setGameStage(GameStage.INIT);
     }

@@ -119,4 +119,8 @@ public class ChipHandler {
     public void giveChipsToPlayer(Player player, TableState tableState) {
         player.setBalance(player.getBalance() + tableState.getPot());
     }
+
+    public void splitChipsBetweenPlayers(TableState tableState, Player... players) {
+        //TODO code this!
+    }
 }
