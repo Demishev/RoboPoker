@@ -163,29 +163,52 @@ public class ShowdownGameProcessorTest {
 
     @Test
     public void shouldFirstPlayerBeRewardedWhenAllAreReadyAndFirstHasBestCardCombination() throws Exception {
-        setFirstCardCombinationIsBest();
+        setFirstSecondThirdCardCombinationIsBest();
 
         processor.invoke(tableStateMock);
 
         verify(chipHandlerMock).giveChipsToPlayer(firstPlayerMock, tableStateMock);
     }
 
-    private void setFirstCardCombinationIsBest() {
+    private void setFirstSecondThirdCardCombinationIsBest() {
         when(firstPlayerCardCombinationMock.compareTo(secondPlayerCardCombinationMock)).thenReturn(5);
         when(secondPlayerCardCombinationMock.compareTo(firstPlayerCardCombinationMock)).thenReturn(-5);
 
         when(firstPlayerCardCombinationMock.compareTo(thirdPlayerCardCombinationMock)).thenReturn(3);
         when(thirdPlayerCardCombinationMock.compareTo(firstPlayerCardCombinationMock)).thenReturn(-3);
+
+        when(secondPlayerCardCombinationMock.compareTo(thirdPlayerCardCombinationMock)).thenReturn(1);
+        when(thirdPlayerCardCombinationMock.compareTo(secondPlayerCardCombinationMock)).thenReturn(-1);
     }
 
 
     @Test
     public void shouldThirdPlayerNotBeRewardedWhenAllAreReadyAndFirstHasBestCardCombination() throws Exception {
-        setFirstCardCombinationIsBest();
+        setFirstSecondThirdCardCombinationIsBest();
 
         processor.invoke(tableStateMock);
 
         verify(chipHandlerMock, never()).giveChipsToPlayer(thirdPlayerMock, tableStateMock);
+    }
+
+    @Test
+    public void shouldSecondPlayerGetsChipsWhenFirstSecondThirdByCoolestAndFirstIsDown() throws Exception {
+        setFirstSecondThirdCardCombinationIsBest();
+        when(firstPlayerMock.getStatus()).thenReturn(FOLD_ACTION);
+
+        processor.invoke(tableStateMock);
+
+        verify(chipHandlerMock).giveChipsToPlayer(secondPlayerMock, tableStateMock);
+    }
+
+    @Test
+    public void shouldNoFirstPlayerGetsChipsWhenFirstSecondThirdByCoolestAndFirstIsDown() throws Exception {
+        setFirstSecondThirdCardCombinationIsBest();
+        when(firstPlayerMock.getStatus()).thenReturn(FOLD_ACTION);
+
+        processor.invoke(tableStateMock);
+
+        verify(chipHandlerMock, never()).giveChipsToPlayer(firstPlayerMock, tableStateMock);
     }
 
     //TODO need to think about reward transfer if there are more than one winner.
