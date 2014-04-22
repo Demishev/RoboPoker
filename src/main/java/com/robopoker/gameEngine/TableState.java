@@ -60,6 +60,10 @@ public class TableState {
         this.cardDeck = cardDeck;
     }
 
+    public List<Card> getDeskCards() {
+        return deskCards;
+    }
+
     public void setDeskCards(List<Card> deskCards) {
         this.deskCards = deskCards;
     }

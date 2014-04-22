@@ -1,10 +1,9 @@
 package com.robopoker.gameEngine.gameplayprocessors;
 
+import com.robopoker.gameEngine.CardCombinationFactory;
 import com.robopoker.gameEngine.ChipHandler;
 import com.robopoker.gameEngine.TableState;
-import com.robopoker.gameStuff.GameStage;
-import com.robopoker.gameStuff.Player;
-import com.robopoker.gameStuff.PlayerAction;
+import com.robopoker.gameStuff.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,11 +22,21 @@ import static org.mockito.Mockito.*;
 public class ShowdownGameProcessorTest {
     public static final PlayerAction FOLD_ACTION = new PlayerAction(PlayerAction.Type.FOLD);
     public static final PlayerAction SIT_OUT_ACTION = new PlayerAction(PlayerAction.Type.SIT_OUT);
+    private final Card firstPlayerCard1Mock = mock(Card.class);
+    private final Card firstPlayerCard2Mock = mock(Card.class);
+    private final Card secondPlayerCard1Mock = mock(Card.class);
+    private final Card secondPlayerCard2Mock = mock(Card.class);
+    private final Card thirdPlayerCard1Mock = mock(Card.class);
+    private final Card thirdPlayerCard2Mock = mock(Card.class);
+    private final Card firstDeskCardMock = mock(Card.class);
+    private final Card secondDeskCardMock = mock(Card.class);
     TableState tableStateMock;
+    CardCombination firstPlayerCardCombinationMock;
+    CardCombination secondPlayerCardCombinationMock;
+    CardCombination thirdPlayerCardCombinationMock;
     private ShowdownGameProcessor processor;
-
     private ChipHandler chipHandlerMock;
-
+    private CardCombinationFactory cardCombinationFactoryMock;
     private Player firstPlayerMock;
     private Player secondPlayerMock;
     private Player thirdPlayerMock;
@@ -35,15 +44,39 @@ public class ShowdownGameProcessorTest {
 
     @Before
     public void setUp() throws Exception {
-
         tableStateMock = mock(TableState.class);
         chipHandlerMock = mock(ChipHandler.class);
+        cardCombinationFactoryMock = mock(CardCombinationFactory.class);
 
         resetPlayers();
+
         when(tableStateMock.getGameStage()).thenReturn(GameStage.SHOWDOWN);
 
+        resetCardCombinations();
 
-        processor = new ShowdownGameProcessor(chipHandlerMock);
+        processor = new ShowdownGameProcessor(chipHandlerMock, cardCombinationFactoryMock);
+    }
+
+    private void resetCardCombinations() {
+        firstPlayerCardCombinationMock = mock(CardCombination.class);
+        secondPlayerCardCombinationMock = mock(CardCombination.class);
+        thirdPlayerCardCombinationMock = mock(CardCombination.class);
+
+        List<Card> firstPlayerCards = Arrays.asList(firstPlayerCard1Mock, firstPlayerCard2Mock);
+        List<Card> secondPlayerCards = Arrays.asList(secondPlayerCard1Mock, secondPlayerCard2Mock);
+        List<Card> thirdPlayerCards = Arrays.asList(thirdPlayerCard1Mock, thirdPlayerCard2Mock);
+
+        List<Card> descCards = Arrays.asList(firstDeskCardMock, secondDeskCardMock);
+
+        when(firstPlayerMock.getPlayerCards()).thenReturn(firstPlayerCards);
+        when(secondPlayerMock.getPlayerCards()).thenReturn(secondPlayerCards);
+        when(thirdPlayerMock.getPlayerCards()).thenReturn(thirdPlayerCards);
+
+        when(tableStateMock.getDeskCards()).thenReturn(descCards);
+
+        when(cardCombinationFactoryMock.generateCardCombination(firstPlayerCards, descCards)).thenReturn(firstPlayerCardCombinationMock);
+        when(cardCombinationFactoryMock.generateCardCombination(secondPlayerCards, descCards)).thenReturn(secondPlayerCardCombinationMock);
+        when(cardCombinationFactoryMock.generateCardCombination(thirdPlayerCards, descCards)).thenReturn(thirdPlayerCardCombinationMock);
     }
 
     private void resetPlayers() {
@@ -128,7 +161,33 @@ public class ShowdownGameProcessorTest {
         verify(chipHandlerMock, never()).giveChipsToPlayer(firstPlayerMock, tableStateMock);
     }
 
-    //TODO when there are more than one active player - need to find player with best cards.
+    @Test
+    public void shouldFirstPlayerBeRewardedWhenAllAreReadyAndFirstHasBestCardCombination() throws Exception {
+        setFirstCardCombinationIsBest();
+
+        processor.invoke(tableStateMock);
+
+        verify(chipHandlerMock).giveChipsToPlayer(firstPlayerMock, tableStateMock);
+    }
+
+    private void setFirstCardCombinationIsBest() {
+        when(firstPlayerCardCombinationMock.compareTo(secondPlayerCardCombinationMock)).thenReturn(5);
+        when(secondPlayerCardCombinationMock.compareTo(firstPlayerCardCombinationMock)).thenReturn(-5);
+
+        when(firstPlayerCardCombinationMock.compareTo(thirdPlayerCardCombinationMock)).thenReturn(3);
+        when(thirdPlayerCardCombinationMock.compareTo(firstPlayerCardCombinationMock)).thenReturn(-3);
+    }
+
+
+    @Test
+    public void shouldThirdPlayerNotBeRewardedWhenAllAreReadyAndFirstHasBestCardCombination() throws Exception {
+        setFirstCardCombinationIsBest();
+
+        processor.invoke(tableStateMock);
+
+        verify(chipHandlerMock, never()).giveChipsToPlayer(thirdPlayerMock, tableStateMock);
+    }
+
     //TODO need to think about reward transfer if there are more than one winner.
 
 

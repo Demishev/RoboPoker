@@ -32,6 +32,10 @@ public class Player {
         this.status = status;
     }
 
+    public List<Card> getPlayerCards() {
+        return playerCards;
+    }
+
     public void setPlayerCards(List<Card> playerCards) {
         this.playerCards = playerCards;
     }
